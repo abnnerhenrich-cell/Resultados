@@ -1,9 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Resultados das Loterias</title>
+
   <style>
     :root{
       --bg:#020617;
@@ -13,10 +15,13 @@
       --green:#39ff9b;
       --text:#f8fafc;
       --muted:#a7b6cc;
-      --danger:#ff4d6d;
       --line:rgba(255,255,255,.14);
     }
-    *{box-sizing:border-box}
+
+    *{
+      box-sizing:border-box;
+    }
+
     body{
       margin:0;
       font-family:Arial, Helvetica, sans-serif;
@@ -24,6 +29,7 @@
       color:var(--text);
       min-height:100vh;
     }
+
     header{
       padding:26px 16px;
       text-align:center;
@@ -34,22 +40,26 @@
       backdrop-filter:blur(10px);
       z-index:5;
     }
+
     h1{
       margin:0;
       font-size:clamp(25px,5vw,42px);
       color:var(--blue);
       text-shadow:0 0 14px rgba(0,200,255,.7);
     }
+
     .sub{
       color:var(--muted);
       margin-top:8px;
       font-size:14px;
     }
+
     main{
       width:min(1100px,100%);
       margin:0 auto;
       padding:18px 12px 40px;
     }
+
     .toolbar{
       display:flex;
       gap:10px;
@@ -58,6 +68,7 @@
       align-items:center;
       margin:12px 0 18px;
     }
+
     .status{
       padding:10px 12px;
       border:1px solid var(--line);
@@ -67,6 +78,7 @@
       flex:1;
       min-width:230px;
     }
+
     button{
       border:0;
       border-radius:14px;
@@ -77,11 +89,13 @@
       cursor:pointer;
       box-shadow:0 0 18px rgba(0,200,255,.25);
     }
+
     .grid{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
       gap:14px;
     }
+
     .card{
       background:linear-gradient(180deg,rgba(13,43,92,.95),rgba(7,27,56,.95));
       border:1px solid var(--line);
@@ -89,36 +103,45 @@
       padding:16px;
       box-shadow:0 20px 40px rgba(0,0,0,.25);
     }
+
     .card h2{
       margin:0 0 8px;
       font-size:21px;
       color:var(--green);
       text-shadow:0 0 12px rgba(57,255,155,.55);
     }
+
     .meta{
       color:var(--muted);
       font-size:13px;
       margin-bottom:12px;
     }
+
     table{
       width:100%;
       border-collapse:collapse;
       overflow:hidden;
       border-radius:14px;
     }
+
     th,td{
       padding:10px 8px;
       border-bottom:1px solid rgba(255,255,255,.1);
       text-align:left;
       font-size:15px;
     }
-    th{color:var(--blue)}
+
+    th{
+      color:var(--blue);
+    }
+
     .milhar{
       font-size:20px;
       font-weight:900;
       color:white;
       text-shadow:0 0 10px rgba(255,255,255,.6);
     }
+
     .empty{
       text-align:center;
       color:var(--muted);
@@ -126,6 +149,7 @@
       border:1px dashed var(--line);
       border-radius:18px;
     }
+
     footer{
       text-align:center;
       color:var(--muted);
@@ -134,19 +158,28 @@
     }
   </style>
 </head>
+
 <body>
+
 <header>
   <h1>Resultados das Loterias</h1>
   <div class="sub">Atualização automática via Firebase</div>
 </header>
 
 <main>
+
   <div class="toolbar">
-    <div class="status" id="status">Carregando resultados...</div>
-    <button onclick="location.reload()">Atualizar tela</button>
+    <div class="status" id="status">
+      Carregando resultados...
+    </div>
+
+    <button onclick="location.reload()">
+      Atualizar tela
+    </button>
   </div>
 
   <section id="results" class="grid"></section>
+
 </main>
 
 <footer>
@@ -154,93 +187,152 @@
 </footer>
 
 <script type="module">
-  /*
-    1) Crie seu app web no Firebase.
-    2) Copie a configuração do Firebase e cole abaixo.
-  */
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-  import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyC6iyfXbCt-fHL5Wt5zNS5myKq-njJzbms",
-    authDomain: "resultados-loterias-3979a.firebaseapp.com",
-    projectId: "resultados-loterias-3979a",
-    storageBucket: "resultados-loterias-3979a.firebasestorage.app",
-    messagingSenderId: "109416331388",
-    appId: "1:109416331388:web:8e04783520d08adc87b1f9"
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  query,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC6iyfXbCt-fHL5Wt5zNS5myKq-njJzbms",
+  authDomain: "resultados-loterias-3979a.firebaseapp.com",
+  projectId: "resultados-loterias-3979a",
+  storageBucket: "resultados-loterias-3979a.firebasestorage.app",
+  messagingSenderId: "109416331388",
+  appId: "1:109416331388:web:8e04783520d08adc87b1f9"
 };
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-  const resultsEl = document.getElementById("results");
-  const statusEl = document.getElementById("status");
+const resultsEl = document.getElementById("results");
+const statusEl = document.getElementById("status");
 
-  function escapeHtml(value){
-    return String(value ?? "").replace(/[&<>"']/g, s => ({
-      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-    }[s]));
+function escapeHtml(value){
+  return String(value ?? "").replace(/[&<>"']/g, s => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#039;"
+  }[s]));
+}
+
+function render(docs){
+
+  if(!docs.length){
+
+    resultsEl.innerHTML =
+    `<div class="empty">Nenhum resultado encontrado ainda.</div>`;
+
+    statusEl.textContent = "Aguardando primeira coleta...";
+
+    return;
   }
 
-  function render(docs){
-    if(!docs.length){
-      resultsEl.innerHTML = `<div class="empty">Nenhum resultado encontrado ainda.</div>`;
-      statusEl.textContent = "Aguardando primeira coleta...";
-      return;
-    }
+  statusEl.textContent =
+  "Última atualização: " + new Date().toLocaleString("pt-BR");
 
-    statusEl.textContent = `Última atualização: ${new Date().toLocaleString("pt-BR")}`;
+  resultsEl.innerHTML = docs.map(item => {
 
-    resultsEl.innerHTML = docs.map(item => {
-      let premios = [];
+    let premios = [];
 
-try {
-  premios = typeof item.premios === "string"
-    ? JSON.parse(item.premios)
-    : Array.isArray(item.premios)
+    try {
+
+      premios = typeof item.premios === "string"
+      ? JSON.parse(item.premios)
+      : Array.isArray(item.premios)
       ? item.premios
       : [];
-} catch (e) {
-  premios = [];
-}
-      return `
-        <article class="card">
-          <h2>${escapeHtml(item.titulo || "Resultado")}</h2>
-          <div class="meta">
-            ${escapeHtml(item.data || "")}
-            ${item.fonte ? " • Fonte: " + escapeHtml(item.fonte) : ""}
-          </div>
-          <table>
-            <thead>
-              <tr>
-                <th>Prêmio</th>
-                <th>Milhar</th>
-                <th>Bicho</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${premios.map((p, i) => `
-                <tr>
-                  <td>${escapeHtml(p.posicao || (i+1)+"º")}</td>
-                  <td class="milhar">${escapeHtml(p.milhar || p.numero || "")}</td>
-                  <td>${escapeHtml(p.bicho || p.grupo || "")}</td>
-                </tr>
-              `).join("")}
-            </tbody>
-          </table>
-        </article>
-      `;
-    }).join("");
-  }
 
-  const q = query(collection(db, "resultados"), orderBy("createdAt", "desc"));
-  onSnapshot(q, snap => {
-    const docs = snap.docs.map(d => ({ id:d.id, ...d.data() }));
-    render(docs);
-  }, err => {
-    console.error(err);
-    statusEl.textContent = "Erro ao carregar. Confira Firebase Config e regras.";
-  });
+    } catch (e) {
+
+      premios = [];
+
+    }
+
+    return `
+      <article class="card">
+
+        <h2>
+          ${escapeHtml(item.titulo || "Resultado")}
+        </h2>
+
+        <div class="meta">
+          ${escapeHtml(item.data || "")}
+
+          ${item.fonte
+            ? " • Fonte: " + escapeHtml(item.fonte)
+            : ""}
+        </div>
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Prêmio</th>
+              <th>Milhar</th>
+              <th>Bicho</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${premios.map((p, i) => `
+
+              <tr>
+                <td>
+                  ${escapeHtml(p.posicao || (i + 1) + "º")}
+                </td>
+
+                <td class="milhar">
+                  ${escapeHtml(p.milhar || "")}
+                </td>
+
+                <td>
+                  ${escapeHtml(p.bicho || "")}
+                </td>
+              </tr>
+
+            `).join("")}
+
+          </tbody>
+
+        </table>
+
+      </article>
+    `;
+
+  }).join("");
+
+}
+
+const q = query(collection(db, "resultados"));
+
+onSnapshot(q, snap => {
+
+  const docs = snap.docs.map(d => ({
+    id:d.id,
+    ...d.data()
+  }));
+
+  render(docs);
+
+}, err => {
+
+  console.error(err);
+
+  statusEl.textContent =
+  "Erro ao carregar. Confira Firebase Config e regras.";
+
+});
+
 </script>
+
 </body>
 </html>
+```
