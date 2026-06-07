@@ -10,14 +10,14 @@
 
 :root{
   --bg:#020617;
-  --panel:#071526;
-  --card:#0b1f3a;
-  --card2:#07182f;
+  --bg2:#04142b;
+  --card:#071b38;
+  --card2:#0c2952;
   --blue:#00c8ff;
   --green:#39ff9b;
-  --white:#f8fafc;
-  --muted:#9fb3c8;
-  --line:rgba(255,255,255,.12);
+  --white:#ffffff;
+  --muted:#9db3cf;
+  --line:rgba(255,255,255,.10);
 }
 
 *{
@@ -27,13 +27,11 @@
 }
 
 body{
-  min-height:100vh;
-  font-family:Arial, Helvetica, sans-serif;
-  color:var(--white);
   background:
-    radial-gradient(circle at top left,rgba(0,200,255,.22),transparent 30%),
-    radial-gradient(circle at top right,rgba(57,255,155,.12),transparent 28%),
-    linear-gradient(180deg,#020617,#000);
+    radial-gradient(circle at top,#063970 0%,#020617 40%,#000 100%);
+  color:white;
+  font-family:Arial, Helvetica, sans-serif;
+  min-height:100vh;
   overflow-x:hidden;
 }
 
@@ -41,341 +39,277 @@ body::before{
   content:"";
   position:fixed;
   inset:0;
-  background:linear-gradient(120deg,transparent,rgba(255,255,255,.04),transparent);
-  animation:shine 6s linear infinite;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(0,200,255,.15),transparent 30%),
+    radial-gradient(circle at 80% 30%,rgba(57,255,155,.08),transparent 30%);
   pointer-events:none;
 }
 
-@keyframes shine{
-  from{transform:translateX(-100%)}
-  to{transform:translateX(100%)}
-}
-
-header{
-  padding:28px 16px 20px;
+.container{
+  width:min(1450px,95%);
+  margin:auto;
+  padding:20px 0 60px;
 }
 
 .hero{
-  width:min(1150px,100%);
-  margin:auto;
-  background:linear-gradient(180deg,rgba(7,21,38,.95),rgba(2,6,23,.95));
-  border:1px solid rgba(0,200,255,.22);
-  border-radius:34px;
-  padding:28px 18px;
+  background:linear-gradient(180deg,#031225,#000814);
+  border:1px solid rgba(0,200,255,.20);
+  border-radius:35px;
+  padding:35px 20px;
   text-align:center;
-  position:relative;
-  overflow:hidden;
   box-shadow:
-    0 0 40px rgba(0,200,255,.12),
-    0 20px 45px rgba(0,0,0,.45);
+    0 0 60px rgba(0,200,255,.10),
+    inset 0 0 60px rgba(0,200,255,.04);
+  margin-bottom:22px;
 }
 
-.hero::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(120deg,transparent,rgba(255,255,255,.08),transparent);
-  transform:translateX(-100%);
-  animation:heroGlow 5s infinite;
-}
-
-@keyframes heroGlow{
-  0%{transform:translateX(-100%)}
-  60%,100%{transform:translateX(100%)}
-}
-
-.logo{
-  position:relative;
-  z-index:1;
-  font-size:clamp(30px,7vw,56px);
+.hero h1{
+  font-size:clamp(40px,6vw,75px);
   font-weight:900;
-  color:white;
-  text-shadow:0 0 18px rgba(0,200,255,.8);
+  line-height:1;
 }
 
-.logo span{
+.hero h1 span{
   color:var(--blue);
+  text-shadow:
+    0 0 10px rgba(0,200,255,.8),
+    0 0 30px rgba(0,200,255,.5);
 }
 
-.sub{
-  position:relative;
-  z-index:1;
-  margin-top:10px;
+.hero p{
   color:var(--green);
-  font-weight:900;
-  text-shadow:0 0 12px rgba(57,255,155,.7);
+  margin-top:18px;
+  font-size:23px;
+  font-weight:700;
+  text-shadow:0 0 10px rgba(57,255,155,.4);
 }
 
 .badges{
-  position:relative;
-  z-index:1;
   display:flex;
+  gap:12px;
   justify-content:center;
   flex-wrap:wrap;
-  gap:10px;
-  margin-top:18px;
+  margin-top:20px;
 }
 
 .badge{
-  padding:9px 14px;
-  border-radius:999px;
   background:linear-gradient(135deg,var(--blue),var(--green));
   color:#001018;
+  padding:14px 22px;
+  border-radius:999px;
   font-weight:900;
-  font-size:12px;
-  box-shadow:0 0 18px rgba(0,200,255,.35);
+  box-shadow:0 0 20px rgba(0,200,255,.25);
 }
 
-.container{
-  width:min(1200px,100%);
-  margin:auto;
-  padding:0 12px 40px;
+.topbar{
+  background:rgba(0,0,0,.45);
+  border:1px solid rgba(0,200,255,.15);
+  border-radius:30px;
+  padding:16px;
+  margin-bottom:22px;
+  backdrop-filter:blur(10px);
 }
 
-.panel{
-  position:sticky;
-  top:0;
-  z-index:20;
-  background:rgba(2,6,23,.82);
-  backdrop-filter:blur(16px);
-  border:1px solid var(--line);
-  border-radius:28px;
-  padding:14px;
-  margin-bottom:18px;
-  box-shadow:0 12px 30px rgba(0,0,0,.35);
-}
-
-.toolbar{
-  display:grid;
-  grid-template-columns:1fr auto;
+.controls{
+  display:flex;
   gap:12px;
+  flex-wrap:wrap;
 }
 
 select{
-  width:100%;
-  border:1px solid rgba(0,200,255,.35);
-  border-radius:18px;
-  padding:15px;
-  font-size:15px;
-  font-weight:900;
-  background:linear-gradient(180deg,#0b2545,#071526);
+  flex:1;
+  min-width:250px;
+  background:#08192f;
+  border:1px solid rgba(0,200,255,.25);
   color:white;
+  padding:18px;
+  border-radius:18px;
+  font-size:18px;
   outline:none;
 }
 
 button{
-  border:0;
-  border-radius:18px;
-  padding:15px 20px;
   background:linear-gradient(135deg,var(--blue),var(--green));
   color:#001018;
+  border:none;
+  border-radius:18px;
+  padding:18px 28px;
+  font-size:18px;
   font-weight:900;
   cursor:pointer;
   transition:.25s;
-  box-shadow:0 0 20px rgba(0,200,255,.3);
+  box-shadow:0 0 25px rgba(0,200,255,.25);
 }
 
 button:hover{
-  transform:translateY(-2px) scale(1.03);
-  box-shadow:0 0 28px rgba(57,255,155,.45);
+  transform:translateY(-2px) scale(1.02);
 }
 
-.tabs{
+.filtros{
   display:flex;
   gap:10px;
-  overflow-x:auto;
-  margin-top:14px;
-  padding-bottom:4px;
-  scrollbar-width:none;
+  flex-wrap:wrap;
+  margin-top:16px;
 }
 
-.tabs::-webkit-scrollbar{
-  display:none;
-}
-
-.tab{
-  flex:0 0 auto;
-  padding:11px 16px;
+.tag{
+  padding:12px 18px;
   border-radius:999px;
   border:1px solid rgba(0,200,255,.25);
-  background:rgba(255,255,255,.06);
-  font-size:13px;
-  font-weight:900;
+  background:#07172d;
+  color:white;
   cursor:pointer;
+  font-weight:800;
   transition:.25s;
 }
 
-.tab.active,
-.tab:hover{
+.tag:hover,
+.tag.active{
   background:linear-gradient(135deg,var(--blue),var(--green));
   color:#001018;
-  box-shadow:0 0 18px rgba(0,200,255,.45);
 }
 
 .status{
-  margin-top:12px;
-  color:var(--muted);
   text-align:center;
-  font-size:13px;
+  color:var(--muted);
+  margin-top:14px;
+  font-size:15px;
 }
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-  gap:16px;
+  grid-template-columns:repeat(auto-fit,minmax(450px,1fr));
+  gap:18px;
 }
 
 .card{
+  background:
+    linear-gradient(180deg,rgba(9,31,58,.95),rgba(3,16,35,.96));
+  border:1px solid rgba(0,200,255,.14);
+  border-radius:34px;
+  padding:22px;
   position:relative;
   overflow:hidden;
-  border-radius:30px;
-  border:1px solid rgba(255,255,255,.12);
-  background:
-    linear-gradient(180deg,rgba(11,31,58,.98),rgba(5,16,33,.98));
-  padding:18px;
   box-shadow:
-    0 20px 35px rgba(0,0,0,.4),
-    0 0 20px rgba(0,200,255,.08);
-  animation:cardIn .4s ease both;
+    0 0 35px rgba(0,200,255,.06),
+    inset 0 0 20px rgba(0,200,255,.03);
+  animation:fade .35s ease;
 }
 
 .card::before{
   content:"";
   position:absolute;
-  inset:0;
-  background:linear-gradient(120deg,transparent,rgba(0,200,255,.08),transparent);
-  transform:translateX(-100%);
-  animation:cardGlow 4s infinite;
-}
-
-@keyframes cardGlow{
-  0%{transform:translateX(-100%)}
-  60%,100%{transform:translateX(100%)}
-}
-
-@keyframes cardIn{
-  from{
-    opacity:0;
-    transform:translateY(15px) scale(.98);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0) scale(1);
-  }
+  top:-100px;
+  right:-100px;
+  width:240px;
+  height:240px;
+  background:radial-gradient(circle,rgba(0,200,255,.18),transparent 70%);
 }
 
 .card h2{
-  position:relative;
-  z-index:1;
+  font-size:22px;
+  line-height:1.35;
+  margin-bottom:14px;
   color:white;
-  font-size:20px;
-  margin-bottom:12px;
-  line-height:1.3;
+  padding-right:20px;
 }
 
 .card h2::before{
-  content:"";
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  display:inline-block;
-  margin-right:8px;
-  background:var(--green);
-  box-shadow:0 0 12px var(--green);
+  content:"●";
+  color:var(--green);
+  margin-right:10px;
+  text-shadow:0 0 12px rgba(57,255,155,.8);
 }
 
-.meta{
-  position:relative;
-  z-index:1;
+.info{
   background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:16px;
-  padding:12px;
-  margin-bottom:14px;
+  border:1px solid rgba(255,255,255,.06);
+  padding:14px;
+  border-radius:18px;
   color:var(--muted);
-  font-size:13px;
-  line-height:1.6;
+  margin-bottom:16px;
+  line-height:1.7;
 }
 
 table{
-  position:relative;
-  z-index:1;
   width:100%;
   border-collapse:separate;
-  border-spacing:0 8px;
+  border-spacing:0 12px;
 }
 
 th{
   text-align:left;
   color:var(--blue);
-  text-transform:uppercase;
-  font-size:12px;
-  padding:0 8px 2px;
+  font-size:14px;
+  padding:0 12px;
 }
 
 td{
-  background:rgba(255,255,255,.05);
-  border-top:1px solid rgba(255,255,255,.08);
-  border-bottom:1px solid rgba(255,255,255,.08);
-  padding:11px 8px;
+  background:rgba(255,255,255,.04);
+  padding:16px 12px;
+  font-size:18px;
 }
 
 td:first-child{
-  border-left:1px solid rgba(255,255,255,.08);
-  border-radius:14px 0 0 14px;
+  border-radius:16px 0 0 16px;
   color:var(--green);
   font-weight:900;
 }
 
 td:last-child{
-  border-right:1px solid rgba(255,255,255,.08);
-  border-radius:0 14px 14px 0;
+  border-radius:0 16px 16px 0;
 }
 
 .milhar{
-  color:white;
-  font-size:23px;
+  font-size:22px;
   font-weight:900;
-  text-shadow:0 0 12px rgba(255,255,255,.75);
+  color:white;
+  text-shadow:
+    0 0 10px rgba(255,255,255,.9),
+    0 0 20px rgba(255,255,255,.5);
 }
 
 .empty{
-  grid-column:1/-1;
   text-align:center;
-  padding:40px;
-  border-radius:24px;
-  border:1px dashed rgba(0,200,255,.25);
+  padding:70px 20px;
   color:var(--muted);
-  background:rgba(255,255,255,.04);
+  font-size:22px;
 }
 
 footer{
   text-align:center;
-  color:var(--muted);
-  padding:26px;
-  font-size:12px;
+  color:#7f97b6;
+  margin-top:40px;
+  font-size:14px;
 }
 
-@media(max-width:650px){
-
-  .toolbar{
-    grid-template-columns:1fr;
+@keyframes fade{
+  from{
+    opacity:0;
+    transform:translateY(15px);
   }
-
-  button{
-    width:100%;
+  to{
+    opacity:1;
+    transform:translateY(0);
   }
+}
+
+@media(max-width:700px){
 
   .grid{
     grid-template-columns:1fr;
   }
 
-  .hero{
-    border-radius:24px;
+  .hero h1{
+    font-size:45px;
   }
 
   .card{
-    border-radius:24px;
+    padding:18px;
+  }
+
+  table{
+    font-size:14px;
   }
 
 }
@@ -385,107 +319,60 @@ footer{
 
 <body>
 
-<header>
+<div class="container">
 
-  <div class="hero">
+<div class="hero">
+  <h1>
+    Resultados <span>Kelly Menezes JB</span>
+  </h1>
 
-    <div class="logo">
-      Resultados <span>Kelly Menezes JB</span>
-    </div>
+  <p>
+    Chama no Milhar • Fé no Pai
+  </p>
 
-    <div class="sub">
-      Chama no Milhar • Fé no Pai
-    </div>
+  <div class="badges">
+    <div class="badge">Tempo Real</div>
+    <div class="badge">Histórico</div>
+    <div class="badge">1º ao 5º prêmio</div>
+  </div>
+</div>
 
-    <div class="badges">
-      <div class="badge">Tempo Real</div>
-      <div class="badge">Histórico</div>
-      <div class="badge">1º ao 5º prêmio</div>
-    </div>
+<div class="topbar">
 
+  <div class="controls">
+    <select id="loteriaSelect">
+      <option value="todas">Todas as loterias</option>
+    </select>
+
+    <button onclick="carregarResultados()">
+      Atualizar
+    </button>
   </div>
 
-</header>
+  <div class="filtros">
+    <div class="tag active" onclick="filtrarRapido('todas',this)">Todas</div>
+    <div class="tag" onclick="filtrarRapido('PT-SP',this)">PT-SP</div>
+    <div class="tag" onclick="filtrarRapido('PT-RIO',this)">PT-RIO</div>
+    <div class="tag" onclick="filtrarRapido('LOOK',this)">LOOK</div>
+    <div class="tag" onclick="filtrarRapido('BANDEIRANTES',this)">BANDEIRANTES</div>
+    <div class="tag" onclick="filtrarRapido('LOTECE',this)">LOTECE</div>
+    <div class="tag" onclick="filtrarRapido('MALUCA',this)">MALUCA</div>
+    <div class="tag" onclick="filtrarRapido('BOA SORTE',this)">BOA SORTE</div>
+  </div>
 
-<main class="container">
+  <div class="status" id="status">
+    Carregando resultados...
+  </div>
 
-  <section class="panel">
+</div>
 
-    <div class="toolbar">
-
-      <select id="filtroLoteria">
-
-        <option value="todos">Todas as loterias</option>
-
-        <option value="LOTERIA TRADICIONAL">LOTERIA TRADICIONAL</option>
-
-        <option value="Loteria Nacional">Loteria Nacional</option>
-
-        <option value="MALUCA">MALUCA Bahia</option>
-
-        <option value="PARATODOS BAHIA">PARATODOS BAHIA</option>
-
-        <option value="LOTECE">LOTECE</option>
-
-        <option value="PARATODOS">PARATODOS CEARÁ</option>
-
-        <option value="LBR">LBR</option>
-
-        <option value="BOA SORTE">BOA SORTE GOIÁS</option>
-
-        <option value="LOOK">LOOK LOTERIAS</option>
-
-        <option value="MINAS">MINAS MG</option>
-
-        <option value="CAMPINA GRANDE">CAMPINA GRANDE PB</option>
-
-        <option value="LOTEP">LOTEP</option>
-
-        <option value="PARATODOS PB">PARATODOS PB</option>
-
-        <option value="AVAL">AVAL Pernambuco</option>
-
-        <option value="CAMINHO DA SORTE">CAMINHO DA SORTE</option>
-
-        <option value="LOTERIA POPULAR">LOTERIA POPULAR</option>
-
-        <option value="NORDESTE">NORDESTE MONTE CARLOS</option>
-
-        <option value="PT-RIO">PT-RIO</option>
-
-        <option value="Base Premia">Base Premia RN</option>
-
-        <option value="Bicho RS">Bicho RS</option>
-
-        <option value="ABAESE">ABAESE ITABAIANA</option>
-
-        <option value="BANDEIRANTES">BANDEIRANTES</option>
-
-        <option value="PT-SP">PT-SP</option>
-
-      </select>
-
-      <button onclick="location.reload()">
-        Atualizar
-      </button>
-
-    </div>
-
-    <div class="tabs" id="tabs"></div>
-
-    <div class="status" id="status">
-      Carregando resultados...
-    </div>
-
-  </section>
-
-  <section class="grid" id="resultados"></section>
-
-</main>
+<div class="grid" id="gridResultados"></div>
 
 <footer>
-  Fonte: KELLY MENEZES JB
+  © Kelly Menezes JB • Resultados automáticos em tempo real
 </footer>
+
+</div>
 
 <script type="module">
 
@@ -494,168 +381,78 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/fireba
 import {
   getFirestore,
   collection,
+  query,
   onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const firebaseConfig = {
 
   apiKey: "AIzaSyC6iyfXbCt-fHL5Wt5zNS5myKq-njJzbms",
+
   authDomain: "resultados-loterias-3979a.firebaseapp.com",
+
   projectId: "resultados-loterias-3979a",
+
   storageBucket: "resultados-loterias-3979a.firebasestorage.app",
+
   messagingSenderId: "109416331388",
+
   appId: "1:109416331388:web:8e04783520d08adc87b1f9"
 
 };
 
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
 
-const container = document.getElementById("resultados");
-
+const grid = document.getElementById("gridResultados");
 const statusEl = document.getElementById("status");
-
-const filtro = document.getElementById("filtroLoteria");
-
-const tabs = document.getElementById("tabs");
+const select = document.getElementById("loteriaSelect");
 
 let todosResultados = [];
 
-const atalhos = [
-
-  ["todos","Todas"],
-
-  ["PT-SP","PT-SP"],
-
-  ["PT-RIO","PT-RIO"],
-
-  ["LOOK","LOOK"],
-
-  ["BANDEIRANTES","BANDEIRANTES"],
-
-  ["LOTECE","LOTECE"],
-
-  ["MALUCA","MALUCA"],
-
-  ["BOA SORTE","BOA SORTE"]
-
-];
-
-tabs.innerHTML = atalhos.map((a,i)=>`
-  <div class="tab ${i===0 ? "active":""}" data-value="${a[0]}">
-    ${a[1]}
-  </div>
-`).join("");
-
-tabs.addEventListener("click", e=>{
-
-  const tab = e.target.closest(".tab");
-
-  if(!tab) return;
-
-  document.querySelectorAll(".tab")
-    .forEach(t=>t.classList.remove("active"));
-
-  tab.classList.add("active");
-
-  filtro.value = tab.dataset.value;
-
-  render();
-
-});
-
-filtro.addEventListener("change", ()=>{
-
-  document.querySelectorAll(".tab")
-    .forEach(t=>t.classList.remove("active"));
-
-  render();
-
-});
-
-function escapeHtml(text){
-
-  return String(text || "")
-  .replace(/[&<>"']/g, m => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#039;"
-  }[m]));
-
-}
-
-function normalizar(texto){
+function escapeHtml(texto){
 
   return String(texto || "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"");
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;");
 
 }
 
-function parseData(item){
+function horaParaNumero(hora){
 
-  const texto =
-    item.atualizadoFonte ||
-    item.coletadoEm ||
-    "";
+  if(!hora) return 0;
 
-  const partes = texto.match(
-    /(\d{2})\/(\d{2})\/(\d{4}).*?(\d{2}):(\d{2})/
+  return Number(
+    hora.replace(":","")
   );
 
-  if(!partes) return 0;
-
-  const [
-    _,
-    dia,
-    mes,
-    ano,
-    hora,
-    minuto
-  ] = partes;
-
-  return new Date(
-    `${ano}-${mes}-${dia}T${hora}:${minuto}:00`
-  ).getTime();
-
 }
 
-function render(){
+function renderizar(lista){
 
-  const valor = filtro.value;
+  if(!lista.length){
 
-  let filtrados = [...todosResultados];
-
-  if(valor !== "todos"){
-
-    filtrados = filtrados.filter(r =>
-      normalizar(r.titulo)
-      .includes(normalizar(valor))
-    );
-
-  }
-
-  filtrados.sort((a,b)=>parseData(b)-parseData(a));
-
-  filtrados = filtrados.slice(0, 30);
-
-  if(!filtrados.length){
-
-    container.innerHTML = `
+    grid.innerHTML = `
       <div class="empty">
         Nenhum resultado encontrado.
       </div>
     `;
 
     return;
-
   }
 
-  container.innerHTML = filtrados.map(item => {
+  lista.sort((a,b)=>{
+
+    const horaA = horaParaNumero(a.hora || "");
+    const horaB = horaParaNumero(b.hora || "");
+
+    return horaB - horaA;
+
+  });
+
+  grid.innerHTML = lista.map(item=>{
 
     let premios = [];
 
@@ -663,62 +460,52 @@ function render(){
 
       premios = typeof item.premios === "string"
         ? JSON.parse(item.premios)
-        : Array.isArray(item.premios)
-          ? item.premios
-          : [];
+        : item.premios;
 
     }catch(e){
-
       premios = [];
-
     }
 
     return `
-
-      <article class="card">
+      <div class="card">
 
         <h2>
-          ${escapeHtml(item.titulo || "Resultado")}
+          ${escapeHtml(item.titulo)}
         </h2>
 
-        <div class="meta">
-
-          Data do resultado:
-          ${escapeHtml(item.data || "")}
-
+        <div class="info">
+          Data do resultado: ${escapeHtml(item.data || "")}
           <br>
-
           Última atualização:
-          ${escapeHtml(item.atualizadoFonte || item.coletadoEm || "")}
-
+          ${escapeHtml(item.atualizadoFonte || "")}
         </div>
 
         <table>
 
           <thead>
             <tr>
-              <th>Prêmio</th>
-              <th>Milhar</th>
-              <th>Bicho</th>
+              <th>PRÊMIO</th>
+              <th>MILHAR</th>
+              <th>BICHO</th>
             </tr>
           </thead>
 
           <tbody>
 
-            ${premios.map((p,i)=>`
+            ${premios.map(p=>`
 
               <tr>
 
                 <td>
-                  ${escapeHtml(p.posicao || (i+1)+"º")}
+                  ${escapeHtml(p.posicao)}
                 </td>
 
                 <td class="milhar">
-                  ${escapeHtml(p.milhar || "")}
+                  ${escapeHtml(p.milhar)}
                 </td>
 
                 <td>
-                  ${escapeHtml(p.bicho || p.grupo || "")}
+                  ${escapeHtml(p.bicho)}
                 </td>
 
               </tr>
@@ -729,33 +516,115 @@ function render(){
 
         </table>
 
-      </article>
-
+      </div>
     `;
 
   }).join("");
 
 }
 
-onSnapshot(collection(db, "resultados"), snap => {
+window.filtrarRapido = function(nome,el){
 
-  todosResultados = snap.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data()
-  }));
+  document.querySelectorAll(".tag")
+    .forEach(t=>t.classList.remove("active"));
 
-  statusEl.textContent =
-    "Última atualização da tela: " +
-    new Date().toLocaleString("pt-BR");
+  el.classList.add("active");
 
-  render();
+  select.value = nome;
 
-}, err => {
+  aplicarFiltro();
 
-  console.error(err);
+}
 
-  statusEl.textContent =
-    "Erro ao carregar resultados.";
+function aplicarFiltro(){
+
+  const valor = select.value;
+
+  if(valor === "todas"){
+    renderizar(todosResultados);
+    return;
+  }
+
+  const filtrados = todosResultados.filter(r=>
+    String(r.titulo || "")
+      .toUpperCase()
+      .includes(valor.toUpperCase())
+  );
+
+  renderizar(filtrados);
+
+}
+
+select.addEventListener("change", aplicarFiltro);
+
+window.carregarResultados = function(){
+
+  statusEl.innerHTML =
+    "Atualizando resultados...";
+
+}
+
+const q = query(
+  collection(db,"resultados")
+);
+
+onSnapshot(q,(snap)=>{
+
+  todosResultados = snap.docs
+
+    .map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }))
+
+    .filter(item => {
+
+      const titulo =
+        String(item.titulo || "")
+        .toLowerCase();
+
+      if(!titulo.includes("resultado")) return false;
+
+      if(titulo.includes("function")) return false;
+      if(titulo.includes("window")) return false;
+      if(titulo.includes("document")) return false;
+      if(titulo.includes("print")) return false;
+      if(titulo.includes("__")) return false;
+
+      return true;
+
+    });
+
+  const loterias = [
+    ...new Set(
+      todosResultados.map(r=>r.titulo)
+    )
+  ];
+
+  select.innerHTML = `
+    <option value="todas">
+      Todas as loterias
+    </option>
+  `;
+
+  loterias.forEach(nome=>{
+
+    const opt = document.createElement("option");
+
+    opt.value = nome;
+
+    opt.textContent = nome;
+
+    select.appendChild(opt);
+
+  });
+
+  statusEl.innerHTML = `
+    Última atualização da tela:
+    ${new Date().toLocaleString("pt-BR")}
+  `;
+
+  aplicarFiltro();
 
 });
 
