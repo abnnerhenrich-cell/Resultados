@@ -192,7 +192,17 @@
     statusEl.textContent = `Última atualização: ${new Date().toLocaleString("pt-BR")}`;
 
     resultsEl.innerHTML = docs.map(item => {
-      const premios = Array.isArray(item.premios) ? item.premios : [];
+      let premios = [];
+
+try {
+  premios = typeof item.premios === "string"
+    ? JSON.parse(item.premios)
+    : Array.isArray(item.premios)
+      ? item.premios
+      : [];
+} catch (e) {
+  premios = [];
+}
       return `
         <article class="card">
           <h2>${escapeHtml(item.titulo || "Resultado")}</h2>
