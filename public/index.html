@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -7,7 +8,6 @@
 <title>Resultados Kelly Menezes JB</title>
 
 <style>
-
 :root{
   --bg:#020617;
   --bg2:#04142b;
@@ -231,6 +231,11 @@ button:hover{
   line-height:1.7;
 }
 
+.loteriaNome{
+  color:var(--green);
+  font-weight:900;
+}
+
 table{
   width:100%;
   border-collapse:separate;
@@ -304,16 +309,23 @@ footer{
     font-size:45px;
   }
 
+  .hero p{
+    font-size:18px;
+  }
+
   .card{
     padding:18px;
   }
 
-  table{
-    font-size:14px;
+  td{
+    font-size:15px;
+  }
+
+  .milhar{
+    font-size:20px;
   }
 
 }
-
 </style>
 </head>
 
@@ -353,11 +365,11 @@ footer{
     <div class="tag active" onclick="filtrarRapido('todas',this)">Todas</div>
     <div class="tag" onclick="filtrarRapido('PT-SP',this)">PT-SP</div>
     <div class="tag" onclick="filtrarRapido('PT-RIO',this)">PT-RIO</div>
-    <div class="tag" onclick="filtrarRapido('LOOK',this)">LOOK</div>
+    <div class="tag" onclick="filtrarRapido('LOOK LOTERIAS',this)">LOOK</div>
     <div class="tag" onclick="filtrarRapido('BANDEIRANTES',this)">BANDEIRANTES</div>
     <div class="tag" onclick="filtrarRapido('LOTECE',this)">LOTECE</div>
-    <div class="tag" onclick="filtrarRapido('MALUCA',this)">MALUCA</div>
-    <div class="tag" onclick="filtrarRapido('BOA SORTE',this)">BOA SORTE</div>
+    <div class="tag" onclick="filtrarRapido('MALUCA BAHIA',this)">MALUCA</div>
+    <div class="tag" onclick="filtrarRapido('BOA SORTE GOIÁS',this)">BOA SORTE</div>
   </div>
 
   <div class="status" id="status">
@@ -420,13 +432,29 @@ function escapeHtml(texto){
 
 }
 
-function horaParaNumero(hora){
+function normalizar(texto){
 
-  if(!hora) return 0;
+  return String(texto || "")
+    .toUpperCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .trim();
 
-  return Number(
-    hora.replace(":","")
-  );
+}
+
+function parseDataHora(item){
+
+  const data = String(item.data || "");
+  const hora = String(item.hora || "");
+
+  const d = data.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+  const h = hora.match(/(\d{2}):(\d{2})/);
+
+  if(!d || !h) return 0;
+
+  return new Date(
+    `${d[3]}-${d[2]}-${d[1]}T${h[1]}:${h[2]}:00`
+  ).getTime();
 
 }
 
@@ -443,14 +471,7 @@ function renderizar(lista){
     return;
   }
 
-  lista.sort((a,b)=>{
-
-    const horaA = horaParaNumero(a.hora || "");
-    const horaB = horaParaNumero(b.hora || "");
-
-    return horaB - horaA;
-
-  });
+  lista.sort((a,b)=>parseDataHora(b)-parseDataHora(a));
 
   grid.innerHTML = lista.map(item=>{
 
@@ -474,7 +495,16 @@ function renderizar(lista){
         </h2>
 
         <div class="info">
-          Data do resultado: ${escapeHtml(item.data || "")}
+          Loteria:
+          <span class="loteriaNome">
+            ${escapeHtml(item.loteria || "")}
+          </span>
+          <br>
+          Data do resultado:
+          ${escapeHtml(item.data || "")}
+          <br>
+          Horário:
+          ${escapeHtml(item.hora || "")}
           <br>
           Última atualização:
           ${escapeHtml(item.atualizadoFonte || "")}
@@ -541,15 +571,20 @@ function aplicarFiltro(){
   const valor = select.value;
 
   if(valor === "todas"){
+
     renderizar(todosResultados);
+
     return;
   }
 
-  const filtrados = todosResultados.filter(r=>
-    String(r.titulo || "")
-      .toUpperCase()
-      .includes(valor.toUpperCase())
-  );
+  const filtrados = todosResultados.filter(item => {
+
+    const loteria =
+      normalizar(item.loteria || "");
+
+    return loteria === normalizar(valor);
+
+  });
 
   renderizar(filtrados);
 
@@ -561,6 +596,8 @@ window.carregarResultados = function(){
 
   statusEl.innerHTML =
     "Atualizando resultados...";
+
+  aplicarFiltro();
 
 }
 
@@ -583,6 +620,11 @@ onSnapshot(q,(snap)=>{
         String(item.titulo || "")
         .toLowerCase();
 
+      const loteria =
+        String(item.loteria || "")
+        .toLowerCase();
+
+      if(!item.loteria) return false;
       if(!titulo.includes("resultado")) return false;
 
       if(titulo.includes("function")) return false;
@@ -591,15 +633,22 @@ onSnapshot(q,(snap)=>{
       if(titulo.includes("print")) return false;
       if(titulo.includes("__")) return false;
 
+      if(loteria.includes("function")) return false;
+      if(loteria.includes("window")) return false;
+
       return true;
 
     });
 
   const loterias = [
     ...new Set(
-      todosResultados.map(r=>r.titulo)
+      todosResultados
+        .map(r => r.loteria)
+        .filter(Boolean)
     )
-  ];
+  ].sort();
+
+  const valorAtual = select.value;
 
   select.innerHTML = `
     <option value="todas">
@@ -611,13 +660,23 @@ onSnapshot(q,(snap)=>{
 
     const opt = document.createElement("option");
 
-    opt.value = nome;
+    opt.value = nome || "";
 
-    opt.textContent = nome;
+    opt.textContent = nome || "Sem nome";
 
     select.appendChild(opt);
 
   });
+
+  if(
+    valorAtual &&
+    (
+      valorAtual === "todas" ||
+      loterias.includes(valorAtual)
+    )
+  ){
+    select.value = valorAtual;
+  }
 
   statusEl.innerHTML = `
     Última atualização da tela:
@@ -632,3 +691,4 @@ onSnapshot(q,(snap)=>{
 
 </body>
 </html>
+```
