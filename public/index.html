@@ -1,189 +1,247 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resultados das Loterias</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <style>
-    :root{
-      --bg:#020617;
-      --card:#071b38;
-      --card2:#0d2b5c;
-      --blue:#00c8ff;
-      --green:#39ff9b;
-      --text:#f8fafc;
-      --muted:#a7b6cc;
-      --line:rgba(255,255,255,.14);
-    }
+<title>Resultados das Loterias</title>
 
-    *{
-      box-sizing:border-box;
-    }
+<style>
 
-    body{
-      margin:0;
-      font-family:Arial, Helvetica, sans-serif;
-      background:radial-gradient(circle at top,#0c3a78 0,#020617 45%,#000 100%);
-      color:var(--text);
-      min-height:100vh;
-    }
+:root{
+  --bg:#020617;
+  --card:#071b38;
+  --card2:#0d2b5c;
+  --blue:#00c8ff;
+  --green:#39ff9b;
+  --text:#f8fafc;
+  --muted:#94a3b8;
+  --line:rgba(255,255,255,.12);
+}
 
-    header{
-      padding:26px 16px;
-      text-align:center;
-      border-bottom:1px solid var(--line);
-      background:rgba(0,0,0,.28);
-      position:sticky;
-      top:0;
-      backdrop-filter:blur(10px);
-      z-index:5;
-    }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-    h1{
-      margin:0;
-      font-size:clamp(25px,5vw,42px);
-      color:var(--blue);
-      text-shadow:0 0 14px rgba(0,200,255,.7);
-    }
+body{
+  background:linear-gradient(180deg,#020617,#000);
+  color:var(--text);
+  font-family:Arial, Helvetica, sans-serif;
+  min-height:100vh;
+}
 
-    .sub{
-      color:var(--muted);
-      margin-top:8px;
-      font-size:14px;
-    }
+header{
+  padding:24px 16px;
+  text-align:center;
+  border-bottom:1px solid var(--line);
+  background:rgba(0,0,0,.3);
+  position:sticky;
+  top:0;
+  z-index:10;
+  backdrop-filter:blur(10px);
+}
 
-    main{
-      width:min(1100px,100%);
-      margin:0 auto;
-      padding:18px 12px 40px;
-    }
+header h1{
+  color:var(--blue);
+  font-size:32px;
+  text-shadow:0 0 15px rgba(0,200,255,.7);
+}
 
-    .toolbar{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:space-between;
-      align-items:center;
-      margin:12px 0 18px;
-    }
+.sub{
+  color:var(--muted);
+  margin-top:8px;
+}
 
-    .status{
-      padding:10px 12px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.06);
-      border-radius:14px;
-      color:var(--muted);
-      flex:1;
-      min-width:230px;
-    }
+.container{
+  width:min(1200px,100%);
+  margin:auto;
+  padding:20px;
+}
 
-    button{
-      border:0;
-      border-radius:14px;
-      padding:12px 16px;
-      font-weight:800;
-      color:#001018;
-      background:linear-gradient(135deg,var(--blue),var(--green));
-      cursor:pointer;
-      box-shadow:0 0 18px rgba(0,200,255,.25);
-    }
+.toolbar{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:14px;
-    }
+select{
+  flex:1;
+  min-width:240px;
+  background:var(--card);
+  color:white;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px;
+  font-size:15px;
+}
 
-    .card{
-      background:linear-gradient(180deg,rgba(13,43,92,.95),rgba(7,27,56,.95));
-      border:1px solid var(--line);
-      border-radius:22px;
-      padding:16px;
-      box-shadow:0 20px 40px rgba(0,0,0,.25);
-    }
+button{
+  border:none;
+  border-radius:14px;
+  padding:14px 18px;
+  font-weight:bold;
+  background:linear-gradient(135deg,var(--blue),var(--green));
+  cursor:pointer;
+}
 
-    .card h2{
-      margin:0 0 8px;
-      font-size:21px;
-      color:var(--green);
-      text-shadow:0 0 12px rgba(57,255,155,.55);
-    }
+.status{
+  margin-top:10px;
+  color:var(--muted);
+}
 
-    .meta{
-      color:var(--muted);
-      font-size:13px;
-      margin-bottom:12px;
-    }
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:16px;
+}
 
-    table{
-      width:100%;
-      border-collapse:collapse;
-      overflow:hidden;
-      border-radius:14px;
-    }
+.card{
+  background:linear-gradient(180deg,var(--card2),var(--card));
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
 
-    th,td{
-      padding:10px 8px;
-      border-bottom:1px solid rgba(255,255,255,.1);
-      text-align:left;
-      font-size:15px;
-    }
+.card h2{
+  color:var(--green);
+  font-size:22px;
+  margin-bottom:10px;
+  text-shadow:0 0 12px rgba(57,255,155,.6);
+}
 
-    th{
-      color:var(--blue);
-    }
+.meta{
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:15px;
+}
 
-    .milhar{
-      font-size:20px;
-      font-weight:900;
-      color:white;
-      text-shadow:0 0 10px rgba(255,255,255,.6);
-    }
+table{
+  width:100%;
+  border-collapse:collapse;
+}
 
-    .empty{
-      text-align:center;
-      color:var(--muted);
-      padding:28px 10px;
-      border:1px dashed var(--line);
-      border-radius:18px;
-    }
+th,td{
+  padding:10px;
+  text-align:left;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
 
-    footer{
-      text-align:center;
-      color:var(--muted);
-      font-size:12px;
-      padding:18px;
-    }
-  </style>
+th{
+  color:var(--blue);
+}
+
+.milhar{
+  font-size:20px;
+  font-weight:900;
+  color:white;
+  text-shadow:0 0 12px rgba(255,255,255,.7);
+}
+
+.empty{
+  text-align:center;
+  padding:40px;
+  border:1px dashed var(--line);
+  border-radius:18px;
+  color:var(--muted);
+}
+
+footer{
+  text-align:center;
+  padding:30px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+</style>
 </head>
 
 <body>
 
 <header>
   <h1>Resultados das Loterias</h1>
-  <div class="sub">Atualização automática via Firebase</div>
+  <div class="sub">
+    Atualização automática em tempo real
+  </div>
 </header>
 
-<main>
+<div class="container">
 
   <div class="toolbar">
-    <div class="status" id="status">
-      Carregando resultados...
-    </div>
+
+    <select id="filtroLoteria">
+
+      <option value="todos">Todas as loterias</option>
+
+      <option value="LOTERIA TRADICIONAL">LOTERIA TRADICIONAL</option>
+
+      <option value="Loteria Nacional">Loteria Nacional</option>
+
+      <option value="MALUCA">MALUCA Bahia</option>
+
+      <option value="PARATODOS BAHIA">PARATODOS BAHIA</option>
+
+      <option value="LOTECE">LOTECE</option>
+
+      <option value="PARATODOS">PARATODOS CEARÁ</option>
+
+      <option value="LBR">LBR</option>
+
+      <option value="BOA SORTE">BOA SORTE GOIÁS</option>
+
+      <option value="LOOK">LOOK LOTERIAS</option>
+
+      <option value="MINAS">MINAS MG</option>
+
+      <option value="CAMPINA GRANDE">CAMPINA GRANDE PB</option>
+
+      <option value="LOTEP">LOTEP</option>
+
+      <option value="PARATODOS PB">PARATODOS PB</option>
+
+      <option value="AVAL">AVAL Pernambuco</option>
+
+      <option value="CAMINHO DA SORTE">CAMINHO DA SORTE</option>
+
+      <option value="LOTERIA POPULAR">LOTERIA POPULAR</option>
+
+      <option value="NORDESTE">NORDESTE MONTE CARLOS</option>
+
+      <option value="PT-RIO">PT-RIO</option>
+
+      <option value="Base Premia">Base Premia RN</option>
+
+      <option value="Bicho RS">Bicho RS</option>
+
+      <option value="ABAESE">ABAESE ITABAIANA</option>
+
+      <option value="BANDEIRANTES">BANDEIRANTES</option>
+
+      <option value="PT-SP">PT-SP</option>
+
+    </select>
 
     <button onclick="location.reload()">
-      Atualizar tela
+      Atualizar
     </button>
+
   </div>
 
-  <section id="results" class="grid"></section>
+  <div class="status" id="status">
+    Carregando resultados...
+  </div>
 
-</main>
+  <br>
+
+  <div class="grid" id="resultados"></div>
+
+</div>
 
 <footer>
-  Site informativo. Não realiza apostas.
+  Fonte: resultadofacil.com.br
 </footer>
 
 <script type="module">
@@ -193,81 +251,87 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/fireba
 import {
   getFirestore,
   collection,
-  query,
   onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const firebaseConfig = {
+
   apiKey: "AIzaSyC6iyfXbCt-fHL5Wt5zNS5myKq-njJzbms",
   authDomain: "resultados-loterias-3979a.firebaseapp.com",
   projectId: "resultados-loterias-3979a",
-  storageBucket: "resultados-loterias-3979a.firebasestorage.app",
+  storageBucket: "resultados-loterias-3979a.appspot.com",
   messagingSenderId: "109416331388",
   appId: "1:109416331388:web:8e04783520d08adc87b1f9"
+
 };
 
 const app = initializeApp(firebaseConfig);
+
 const db = getFirestore(app);
 
-const resultsEl = document.getElementById("results");
-const statusEl = document.getElementById("status");
+const container = document.getElementById("resultados");
 
-function escapeHtml(value){
-  return String(value ?? "").replace(/[&<>"']/g, s => ({
+const status = document.getElementById("status");
+
+const filtro = document.getElementById("filtroLoteria");
+
+let todosResultados = [];
+
+function escapeHtml(text){
+
+  return String(text || "")
+  .replace(/[&<>"']/g, m => ({
     "&":"&amp;",
     "<":"&lt;",
     ">":"&gt;",
     '"':"&quot;",
     "'":"&#039;"
-  }[s]));
+  }[m]));
+
 }
 
-function render(docs){
+function render(){
 
-  if(!docs.length){
+  const valor = filtro.value;
 
-    resultsEl.innerHTML =
-    `<div class="empty">Nenhum resultado encontrado ainda.</div>`;
+  let filtrados = todosResultados;
 
-    statusEl.textContent = "Aguardando primeira coleta...";
+  if(valor !== "todos"){
+
+    filtrados = todosResultados.filter(r =>
+      r.titulo.toLowerCase().includes(valor.toLowerCase())
+    );
+
+  }
+
+  if(!filtrados.length){
+
+    container.innerHTML = `
+      <div class="empty">
+        Nenhum resultado encontrado.
+      </div>
+    `;
 
     return;
   }
 
-  statusEl.textContent =
-  "Última atualização: " + new Date().toLocaleString("pt-BR");
-
-  resultsEl.innerHTML = docs.map(item => {
+  container.innerHTML = filtrados.map(item => {
 
     let premios = [];
 
-    try {
+    try{
 
-      premios = typeof item.premios === "string"
-      ? JSON.parse(item.premios)
-      : Array.isArray(item.premios)
-      ? item.premios
-      : [];
+      premios = JSON.parse(item.premios);
 
-    } catch (e) {
-
-      premios = [];
-
-    }
+    }catch(e){}
 
     return `
-      <article class="card">
+      <div class="card">
 
-        <h2>
-          ${escapeHtml(item.titulo || "Resultado")}
-        </h2>
+        <h2>${escapeHtml(item.titulo)}</h2>
 
         <div class="meta">
-          ${escapeHtml(item.data || "")}
-
-          ${item.fonte
-            ? " • Fonte: " + escapeHtml(item.fonte)
-            : ""}
+          ${escapeHtml(item.data)}
         </div>
 
         <table>
@@ -282,52 +346,39 @@ function render(docs){
 
           <tbody>
 
-            ${premios.map((p, i) => `
-
+            ${premios.map(p => `
               <tr>
-                <td>
-                  ${escapeHtml(p.posicao || (i + 1) + "º")}
-                </td>
-
-                <td class="milhar">
-                  ${escapeHtml(p.milhar || "")}
-                </td>
-
-                <td>
-                  ${escapeHtml(p.bicho || "")}
-                </td>
+                <td>${escapeHtml(p.posicao)}</td>
+                <td class="milhar">${escapeHtml(p.milhar)}</td>
+                <td>${escapeHtml(p.bicho)}</td>
               </tr>
-
             `).join("")}
 
           </tbody>
 
         </table>
 
-      </article>
+      </div>
     `;
 
   }).join("");
 
 }
 
-const q = query(collection(db, "resultados"));
+filtro.addEventListener("change", render);
 
-onSnapshot(q, snap => {
+onSnapshot(collection(db, "resultados"), snap => {
 
-  const docs = snap.docs.map(d => ({
-    id:d.id,
-    ...d.data()
+  todosResultados = snap.docs.map(doc => ({
+    id:doc.id,
+    ...doc.data()
   }));
 
-  render(docs);
+  status.innerHTML =
+    "Última atualização: " +
+    new Date().toLocaleString("pt-BR");
 
-}, err => {
-
-  console.error(err);
-
-  statusEl.textContent =
-  "Erro ao carregar. Confira Firebase Config e regras.";
+  render();
 
 });
 
@@ -335,4 +386,3 @@ onSnapshot(q, snap => {
 
 </body>
 </html>
-```
