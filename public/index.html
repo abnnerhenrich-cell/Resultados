@@ -3,30 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Resultados Kelly Menezes JB</title>
 
 <style>
+
 :root{
   --bg:#020617;
+  --panel:#071526;
+  --card:#0b1f3a;
+  --card2:#07182f;
   --blue:#00c8ff;
-  --blue2:#246bff;
   --green:#39ff9b;
   --white:#f8fafc;
-  --muted:#a7b6cc;
-  --card:#071b38;
-  --card2:#0d2b5c;
-  --line:rgba(255,255,255,.15);
+  --muted:#9fb3c8;
+  --line:rgba(255,255,255,.12);
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
 body{
   min-height:100vh;
   font-family:Arial, Helvetica, sans-serif;
   color:var(--white);
   background:
-    radial-gradient(circle at top left,rgba(0,200,255,.35),transparent 35%),
-    radial-gradient(circle at top right,rgba(57,255,155,.22),transparent 35%),
+    radial-gradient(circle at top left,rgba(0,200,255,.22),transparent 30%),
+    radial-gradient(circle at top right,rgba(57,255,155,.12),transparent 28%),
     linear-gradient(180deg,#020617,#000);
   overflow-x:hidden;
 }
@@ -35,8 +41,8 @@ body::before{
   content:"";
   position:fixed;
   inset:0;
-  background:linear-gradient(120deg,transparent,rgba(0,200,255,.08),transparent);
-  animation:shine 5s infinite linear;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.04),transparent);
+  animation:shine 6s linear infinite;
   pointer-events:none;
 }
 
@@ -46,43 +52,97 @@ body::before{
 }
 
 header{
-  padding:26px 14px;
+  padding:28px 16px 20px;
+}
+
+.hero{
+  width:min(1150px,100%);
+  margin:auto;
+  background:linear-gradient(180deg,rgba(7,21,38,.95),rgba(2,6,23,.95));
+  border:1px solid rgba(0,200,255,.22);
+  border-radius:34px;
+  padding:28px 18px;
   text-align:center;
-  position:sticky;
-  top:0;
-  z-index:10;
-  background:rgba(2,6,23,.82);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line);
+  position:relative;
+  overflow:hidden;
+  box-shadow:
+    0 0 40px rgba(0,200,255,.12),
+    0 20px 45px rgba(0,0,0,.45);
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.08),transparent);
+  transform:translateX(-100%);
+  animation:heroGlow 5s infinite;
+}
+
+@keyframes heroGlow{
+  0%{transform:translateX(-100%)}
+  60%,100%{transform:translateX(100%)}
 }
 
 .logo{
-  font-size:clamp(27px,6vw,48px);
-  color:var(--blue);
-  text-shadow:0 0 12px var(--blue),0 0 30px var(--blue2);
+  position:relative;
+  z-index:1;
+  font-size:clamp(30px,7vw,56px);
   font-weight:900;
+  color:white;
+  text-shadow:0 0 18px rgba(0,200,255,.8);
+}
+
+.logo span{
+  color:var(--blue);
 }
 
 .sub{
-  margin-top:8px;
+  position:relative;
+  z-index:1;
+  margin-top:10px;
   color:var(--green);
-  font-weight:bold;
-  text-shadow:0 0 12px var(--green);
+  font-weight:900;
+  text-shadow:0 0 12px rgba(57,255,155,.7);
+}
+
+.badges{
+  position:relative;
+  z-index:1;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:18px;
+}
+
+.badge{
+  padding:9px 14px;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--blue),var(--green));
+  color:#001018;
+  font-weight:900;
+  font-size:12px;
+  box-shadow:0 0 18px rgba(0,200,255,.35);
 }
 
 .container{
   width:min(1200px,100%);
   margin:auto;
-  padding:18px 12px 40px;
+  padding:0 12px 40px;
 }
 
 .panel{
-  background:rgba(255,255,255,.07);
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(2,6,23,.82);
+  backdrop-filter:blur(16px);
   border:1px solid var(--line);
-  border-radius:26px;
-  padding:16px;
-  box-shadow:0 0 30px rgba(0,200,255,.16);
+  border-radius:28px;
+  padding:14px;
   margin-bottom:18px;
+  box-shadow:0 12px 30px rgba(0,0,0,.35);
 }
 
 .toolbar{
@@ -93,218 +153,330 @@ header{
 
 select{
   width:100%;
-  background:linear-gradient(180deg,#092753,#061833);
-  color:white;
-  border:1px solid rgba(0,200,255,.55);
+  border:1px solid rgba(0,200,255,.35);
   border-radius:18px;
   padding:15px;
   font-size:15px;
-  font-weight:800;
+  font-weight:900;
+  background:linear-gradient(180deg,#0b2545,#071526);
+  color:white;
   outline:none;
-  box-shadow:0 0 15px rgba(0,200,255,.22);
 }
 
 button{
   border:0;
   border-radius:18px;
   padding:15px 20px;
-  font-weight:900;
-  color:#001018;
   background:linear-gradient(135deg,var(--blue),var(--green));
+  color:#001018;
+  font-weight:900;
   cursor:pointer;
-  box-shadow:0 0 20px rgba(57,255,155,.35);
   transition:.25s;
+  box-shadow:0 0 20px rgba(0,200,255,.3);
 }
 
 button:hover{
-  transform:scale(1.04);
-  box-shadow:0 0 30px rgba(0,200,255,.65);
-}
-
-.status{
-  margin-top:12px;
-  color:var(--muted);
-  font-size:14px;
+  transform:translateY(-2px) scale(1.03);
+  box-shadow:0 0 28px rgba(57,255,155,.45);
 }
 
 .tabs{
   display:flex;
   gap:10px;
   overflow-x:auto;
-  padding:8px 2px 4px;
   margin-top:14px;
+  padding-bottom:4px;
+  scrollbar-width:none;
+}
+
+.tabs::-webkit-scrollbar{
+  display:none;
 }
 
 .tab{
   flex:0 0 auto;
   padding:11px 16px;
   border-radius:999px;
-  border:1px solid rgba(0,200,255,.45);
-  background:rgba(0,200,255,.08);
-  color:white;
+  border:1px solid rgba(0,200,255,.25);
+  background:rgba(255,255,255,.06);
+  font-size:13px;
   font-weight:900;
   cursor:pointer;
   transition:.25s;
-  white-space:nowrap;
 }
 
 .tab.active,
 .tab:hover{
   background:linear-gradient(135deg,var(--blue),var(--green));
   color:#001018;
-  box-shadow:0 0 18px rgba(0,200,255,.7);
+  box-shadow:0 0 18px rgba(0,200,255,.45);
+}
+
+.status{
+  margin-top:12px;
+  color:var(--muted);
+  text-align:center;
+  font-size:13px;
 }
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(310px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
   gap:16px;
 }
 
 .card{
-  background:linear-gradient(180deg,rgba(13,43,92,.98),rgba(7,27,56,.98));
-  border:1px solid var(--line);
-  border-radius:28px;
-  padding:18px;
-  box-shadow:0 20px 35px rgba(0,0,0,.35),0 0 25px rgba(0,200,255,.13);
-  animation:pop .45s ease both;
   position:relative;
   overflow:hidden;
+  border-radius:30px;
+  border:1px solid rgba(255,255,255,.12);
+  background:
+    linear-gradient(180deg,rgba(11,31,58,.98),rgba(5,16,33,.98));
+  padding:18px;
+  box-shadow:
+    0 20px 35px rgba(0,0,0,.4),
+    0 0 20px rgba(0,200,255,.08);
+  animation:cardIn .4s ease both;
 }
 
 .card::before{
   content:"";
   position:absolute;
-  inset:-2px;
-  background:linear-gradient(120deg,transparent,rgba(57,255,155,.18),transparent);
+  inset:0;
+  background:linear-gradient(120deg,transparent,rgba(0,200,255,.08),transparent);
   transform:translateX(-100%);
-  animation:cardshine 4s infinite;
+  animation:cardGlow 4s infinite;
 }
 
-@keyframes cardshine{
+@keyframes cardGlow{
   0%{transform:translateX(-100%)}
-  55%,100%{transform:translateX(100%)}
+  60%,100%{transform:translateX(100%)}
 }
 
-@keyframes pop{
-  from{opacity:0;transform:translateY(18px) scale(.98)}
-  to{opacity:1;transform:translateY(0) scale(1)}
+@keyframes cardIn{
+  from{
+    opacity:0;
+    transform:translateY(15px) scale(.98);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
 }
 
 .card h2{
   position:relative;
   z-index:1;
-  color:var(--green);
-  font-size:21px;
-  margin-bottom:10px;
-  text-shadow:0 0 14px rgba(57,255,155,.8);
+  color:white;
+  font-size:20px;
+  margin-bottom:12px;
+  line-height:1.3;
+}
+
+.card h2::before{
+  content:"";
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  display:inline-block;
+  margin-right:8px;
+  background:var(--green);
+  box-shadow:0 0 12px var(--green);
 }
 
 .meta{
   position:relative;
   z-index:1;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  padding:12px;
+  margin-bottom:14px;
   color:var(--muted);
   font-size:13px;
-  margin-bottom:12px;
-  line-height:1.5;
+  line-height:1.6;
 }
 
 table{
   position:relative;
   z-index:1;
   width:100%;
-  border-collapse:collapse;
-  overflow:hidden;
-  border-radius:18px;
-}
-
-th,td{
-  padding:11px 8px;
-  border-bottom:1px solid rgba(255,255,255,.1);
-  text-align:left;
+  border-collapse:separate;
+  border-spacing:0 8px;
 }
 
 th{
+  text-align:left;
   color:var(--blue);
-  font-size:13px;
   text-transform:uppercase;
+  font-size:12px;
+  padding:0 8px 2px;
+}
+
+td{
+  background:rgba(255,255,255,.05);
+  border-top:1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  padding:11px 8px;
+}
+
+td:first-child{
+  border-left:1px solid rgba(255,255,255,.08);
+  border-radius:14px 0 0 14px;
+  color:var(--green);
+  font-weight:900;
+}
+
+td:last-child{
+  border-right:1px solid rgba(255,255,255,.08);
+  border-radius:0 14px 14px 0;
 }
 
 .milhar{
   color:white;
-  font-size:22px;
+  font-size:23px;
   font-weight:900;
-  text-shadow:0 0 12px white;
+  text-shadow:0 0 12px rgba(255,255,255,.75);
 }
 
 .empty{
   grid-column:1/-1;
   text-align:center;
-  padding:35px;
+  padding:40px;
+  border-radius:24px;
+  border:1px dashed rgba(0,200,255,.25);
   color:var(--muted);
-  border:1px dashed var(--line);
-  border-radius:22px;
   background:rgba(255,255,255,.04);
 }
 
 footer{
   text-align:center;
   color:var(--muted);
-  padding:25px;
+  padding:26px;
   font-size:12px;
 }
 
-@media(max-width:600px){
-  .toolbar{grid-template-columns:1fr}
-  button{width:100%}
+@media(max-width:650px){
+
+  .toolbar{
+    grid-template-columns:1fr;
+  }
+
+  button{
+    width:100%;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero{
+    border-radius:24px;
+  }
+
+  .card{
+    border-radius:24px;
+  }
+
 }
+
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">Resultados Kelly Menezes JB</div>
-  <div class="sub">Atualização automática • Chama no Milhar</div>
+
+  <div class="hero">
+
+    <div class="logo">
+      Resultados <span>Kelly Menezes JB</span>
+    </div>
+
+    <div class="sub">
+      Chama no Milhar • Atualização Automática
+    </div>
+
+    <div class="badges">
+      <div class="badge">Tempo Real</div>
+      <div class="badge">Histórico</div>
+      <div class="badge">1º ao 5º prêmio</div>
+    </div>
+
+  </div>
+
 </header>
 
 <main class="container">
 
   <section class="panel">
+
     <div class="toolbar">
+
       <select id="filtroLoteria">
+
         <option value="todos">Todas as loterias</option>
+
         <option value="LOTERIA TRADICIONAL">LOTERIA TRADICIONAL</option>
+
         <option value="Loteria Nacional">Loteria Nacional</option>
+
         <option value="MALUCA">MALUCA Bahia</option>
+
         <option value="PARATODOS BAHIA">PARATODOS BAHIA</option>
+
         <option value="LOTECE">LOTECE</option>
+
         <option value="PARATODOS">PARATODOS CEARÁ</option>
+
         <option value="LBR">LBR</option>
+
         <option value="BOA SORTE">BOA SORTE GOIÁS</option>
+
         <option value="LOOK">LOOK LOTERIAS</option>
+
         <option value="MINAS">MINAS MG</option>
+
         <option value="CAMPINA GRANDE">CAMPINA GRANDE PB</option>
+
         <option value="LOTEP">LOTEP</option>
+
         <option value="PARATODOS PB">PARATODOS PB</option>
+
         <option value="AVAL">AVAL Pernambuco</option>
+
         <option value="CAMINHO DA SORTE">CAMINHO DA SORTE</option>
+
         <option value="LOTERIA POPULAR">LOTERIA POPULAR</option>
+
         <option value="NORDESTE">NORDESTE MONTE CARLOS</option>
+
         <option value="PT-RIO">PT-RIO</option>
+
         <option value="Base Premia">Base Premia RN</option>
+
         <option value="Bicho RS">Bicho RS</option>
+
         <option value="ABAESE">ABAESE ITABAIANA</option>
+
         <option value="BANDEIRANTES">BANDEIRANTES</option>
+
         <option value="PT-SP">PT-SP</option>
+
       </select>
 
-      <button onclick="location.reload()">Atualizar</button>
+      <button onclick="location.reload()">
+        Atualizar
+      </button>
+
     </div>
 
     <div class="tabs" id="tabs"></div>
 
-    <div class="status" id="status">Carregando resultados...</div>
+    <div class="status" id="status">
+      Carregando resultados...
+    </div>
+
   </section>
 
   <section class="grid" id="resultados"></section>
@@ -316,7 +488,9 @@ footer{
 </footer>
 
 <script type="module">
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+
 import {
   getFirestore,
   collection,
@@ -324,112 +498,183 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const firebaseConfig = {
+
   apiKey: "AIzaSyC6iyfXbCt-fHL5Wt5zNS5myKq-njJzbms",
   authDomain: "resultados-loterias-3979a.firebaseapp.com",
   projectId: "resultados-loterias-3979a",
   storageBucket: "resultados-loterias-3979a.firebasestorage.app",
   messagingSenderId: "109416331388",
   appId: "1:109416331388:web:8e04783520d08adc87b1f9"
+
 };
 
 const app = initializeApp(firebaseConfig);
+
 const db = getFirestore(app);
 
 const container = document.getElementById("resultados");
+
 const statusEl = document.getElementById("status");
+
 const filtro = document.getElementById("filtroLoteria");
+
 const tabs = document.getElementById("tabs");
 
 let todosResultados = [];
 
 const atalhos = [
+
   ["todos","Todas"],
+
   ["PT-SP","PT-SP"],
+
   ["PT-RIO","PT-RIO"],
+
   ["LOOK","LOOK"],
+
   ["BANDEIRANTES","BANDEIRANTES"],
+
   ["LOTECE","LOTECE"],
+
   ["MALUCA","MALUCA"],
+
   ["BOA SORTE","BOA SORTE"]
+
 ];
 
 tabs.innerHTML = atalhos.map((a,i)=>`
-  <div class="tab ${i===0 ? "active":""}" data-value="${a[0]}">${a[1]}</div>
+  <div class="tab ${i===0 ? "active":""}" data-value="${a[0]}">
+    ${a[1]}
+  </div>
 `).join("");
 
 tabs.addEventListener("click", e=>{
+
   const tab = e.target.closest(".tab");
+
   if(!tab) return;
 
-  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  document.querySelectorAll(".tab")
+    .forEach(t=>t.classList.remove("active"));
+
   tab.classList.add("active");
 
   filtro.value = tab.dataset.value;
+
   render();
+
 });
 
 filtro.addEventListener("change", ()=>{
-  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+
+  document.querySelectorAll(".tab")
+    .forEach(t=>t.classList.remove("active"));
+
   render();
+
 });
 
 function escapeHtml(text){
-  return String(text || "").replace(/[&<>"']/g, m => ({
+
+  return String(text || "")
+  .replace(/[&<>"']/g, m => ({
     "&":"&amp;",
     "<":"&lt;",
     ">":"&gt;",
     '"':"&quot;",
     "'":"&#039;"
   }[m]));
+
 }
 
 function normalizar(texto){
+
   return String(texto || "")
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g,"");
+
 }
 
 function render(){
+
   const valor = filtro.value;
+
   let filtrados = [...todosResultados];
 
   if(valor !== "todos"){
+
     filtrados = filtrados.filter(r =>
-      normalizar(r.titulo).includes(normalizar(valor))
+      normalizar(r.titulo)
+      .includes(normalizar(valor))
     );
+
   }
 
   filtrados = filtrados.slice(0, 30);
 
   if(!filtrados.length){
-    container.innerHTML = `<div class="empty">Nenhum resultado encontrado para essa loteria.</div>`;
+
+    container.innerHTML = `
+      <div class="empty">
+        Nenhum resultado encontrado.
+      </div>
+    `;
+
     return;
+
   }
 
   container.innerHTML = filtrados.map(item => {
+
     let premios = [];
 
     try{
+
       premios = typeof item.premios === "string"
         ? JSON.parse(item.premios)
         : Array.isArray(item.premios)
           ? item.premios
           : [];
+
     }catch(e){
+
       premios = [];
+
     }
 
     return `
+
       <article class="card">
-        <h2>${escapeHtml(item.titulo || "Resultado")}</h2>
+
+        <h2>
+          ${escapeHtml(item.titulo || "Resultado")}
+        </h2>
 
         <div class="meta">
-          Data: ${escapeHtml(item.data || "")}<br>
-          Atualizado em: ${escapeHtml(item.criadoEm || "")}
+
+          Data do resultado:
+          ${escapeHtml(item.data || "")}
+
+          <br>
+
+          Horário da fonte:
+          ${escapeHtml(item.hora || "")}
+
+          <br>
+
+          Última atualização:
+          ${escapeHtml(item.atualizadoFonte || item.coletadoEm || "")}
+
+          <br>
+
+          Coletado em:
+          ${escapeHtml(item.coletadoEm || "")}
+
         </div>
 
         <table>
+
           <thead>
             <tr>
               <th>Prêmio</th>
@@ -439,41 +684,71 @@ function render(){
           </thead>
 
           <tbody>
+
             ${premios.map((p,i)=>`
+
               <tr>
-                <td>${escapeHtml(p.posicao || (i+1)+"º")}</td>
-                <td class="milhar">${escapeHtml(p.milhar || "")}</td>
-                <td>${escapeHtml(p.bicho || p.grupo || "")}</td>
+
+                <td>
+                  ${escapeHtml(p.posicao || (i+1)+"º")}
+                </td>
+
+                <td class="milhar">
+                  ${escapeHtml(p.milhar || "")}
+                </td>
+
+                <td>
+                  ${escapeHtml(p.bicho || p.grupo || "")}
+                </td>
+
               </tr>
+
             `).join("")}
+
           </tbody>
+
         </table>
+
       </article>
+
     `;
+
   }).join("");
+
 }
 
 onSnapshot(collection(db, "resultados"), snap => {
+
   todosResultados = snap.docs.map(doc => ({
     id: doc.id,
     ...doc.data()
   }));
 
   todosResultados.sort((a,b)=>{
-    const dataA = a.criadoEm || "";
-    const dataB = b.criadoEm || "";
+
+    const dataA = a.coletadoEm || "";
+
+    const dataB = b.coletadoEm || "";
+
     return dataB.localeCompare(dataA);
+
   });
 
   statusEl.textContent =
-    "Última atualização da tela: " + new Date().toLocaleString("pt-BR");
+    "Última atualização da tela: " +
+    new Date().toLocaleString("pt-BR");
 
   render();
 
 }, err => {
+
   console.error(err);
-  statusEl.textContent = "Erro ao carregar resultados. Confira as regras do Firebase.";
+
+  statusEl.textContent =
+    "Erro ao carregar resultados.";
+
 });
+
 </script>
 
 </body>
