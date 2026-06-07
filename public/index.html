@@ -394,7 +394,7 @@ footer{
     </div>
 
     <div class="sub">
-      Chama no Milhar • Atualização Automática
+      Chama no Milhar • Fé no Pai
     </div>
 
     <div class="badges">
@@ -484,7 +484,7 @@ footer{
 </main>
 
 <footer>
-  Fonte: resultadofacil.com.br • Site informativo
+  Fonte: KELLY MENEZES JB
 </footer>
 
 <script type="module">
@@ -596,6 +596,34 @@ function normalizar(texto){
 
 }
 
+function parseData(item){
+
+  const texto =
+    item.atualizadoFonte ||
+    item.coletadoEm ||
+    "";
+
+  const partes = texto.match(
+    /(\d{2})\/(\d{2})\/(\d{4}).*?(\d{2}):(\d{2})/
+  );
+
+  if(!partes) return 0;
+
+  const [
+    _,
+    dia,
+    mes,
+    ano,
+    hora,
+    minuto
+  ] = partes;
+
+  return new Date(
+    `${ano}-${mes}-${dia}T${hora}:${minuto}:00`
+  ).getTime();
+
+}
+
 function render(){
 
   const valor = filtro.value;
@@ -610,6 +638,8 @@ function render(){
     );
 
   }
+
+  filtrados.sort((a,b)=>parseData(b)-parseData(a));
 
   filtrados = filtrados.slice(0, 30);
 
@@ -658,18 +688,8 @@ function render(){
 
           <br>
 
-          Horário da fonte:
-          ${escapeHtml(item.hora || "")}
-
-          <br>
-
           Última atualização:
           ${escapeHtml(item.atualizadoFonte || item.coletadoEm || "")}
-
-          <br>
-
-          Coletado em:
-          ${escapeHtml(item.coletadoEm || "")}
 
         </div>
 
@@ -723,16 +743,6 @@ onSnapshot(collection(db, "resultados"), snap => {
     id: doc.id,
     ...doc.data()
   }));
-
-  todosResultados.sort((a,b)=>{
-
-    const dataA = a.coletadoEm || "";
-
-    const dataB = b.coletadoEm || "";
-
-    return dataB.localeCompare(dataA);
-
-  });
 
   statusEl.textContent =
     "Última atualização da tela: " +
