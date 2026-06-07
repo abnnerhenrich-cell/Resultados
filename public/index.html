@@ -1,253 +1,322 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-<title>Resultados das Loterias</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resultados Kelly Menezes JB</title>
 
 <style>
-
 :root{
   --bg:#020617;
+  --blue:#00c8ff;
+  --blue2:#246bff;
+  --green:#39ff9b;
+  --white:#f8fafc;
+  --muted:#a7b6cc;
   --card:#071b38;
   --card2:#0d2b5c;
-  --blue:#00c8ff;
-  --green:#39ff9b;
-  --text:#f8fafc;
-  --muted:#94a3b8;
-  --line:rgba(255,255,255,.12);
+  --line:rgba(255,255,255,.15);
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  background:linear-gradient(180deg,#020617,#000);
-  color:var(--text);
-  font-family:Arial, Helvetica, sans-serif;
   min-height:100vh;
+  font-family:Arial, Helvetica, sans-serif;
+  color:var(--white);
+  background:
+    radial-gradient(circle at top left,rgba(0,200,255,.35),transparent 35%),
+    radial-gradient(circle at top right,rgba(57,255,155,.22),transparent 35%),
+    linear-gradient(180deg,#020617,#000);
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:linear-gradient(120deg,transparent,rgba(0,200,255,.08),transparent);
+  animation:shine 5s infinite linear;
+  pointer-events:none;
+}
+
+@keyframes shine{
+  from{transform:translateX(-100%)}
+  to{transform:translateX(100%)}
 }
 
 header{
-  padding:24px 16px;
+  padding:26px 14px;
   text-align:center;
-  border-bottom:1px solid var(--line);
-  background:rgba(0,0,0,.3);
   position:sticky;
   top:0;
   z-index:10;
-  backdrop-filter:blur(10px);
+  background:rgba(2,6,23,.82);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
 }
 
-header h1{
+.logo{
+  font-size:clamp(27px,6vw,48px);
   color:var(--blue);
-  font-size:32px;
-  text-shadow:0 0 15px rgba(0,200,255,.7);
+  text-shadow:0 0 12px var(--blue),0 0 30px var(--blue2);
+  font-weight:900;
 }
 
 .sub{
-  color:var(--muted);
   margin-top:8px;
+  color:var(--green);
+  font-weight:bold;
+  text-shadow:0 0 12px var(--green);
 }
 
 .container{
   width:min(1200px,100%);
   margin:auto;
-  padding:20px;
+  padding:18px 12px 40px;
+}
+
+.panel{
+  background:rgba(255,255,255,.07);
+  border:1px solid var(--line);
+  border-radius:26px;
+  padding:16px;
+  box-shadow:0 0 30px rgba(0,200,255,.16);
+  margin-bottom:18px;
 }
 
 .toolbar{
-  display:flex;
+  display:grid;
+  grid-template-columns:1fr auto;
   gap:12px;
-  flex-wrap:wrap;
-  margin-bottom:20px;
 }
 
 select{
-  flex:1;
-  min-width:240px;
-  background:var(--card);
+  width:100%;
+  background:linear-gradient(180deg,#092753,#061833);
   color:white;
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:14px;
+  border:1px solid rgba(0,200,255,.55);
+  border-radius:18px;
+  padding:15px;
   font-size:15px;
+  font-weight:800;
+  outline:none;
+  box-shadow:0 0 15px rgba(0,200,255,.22);
 }
 
 button{
-  border:none;
-  border-radius:14px;
-  padding:14px 18px;
-  font-weight:bold;
+  border:0;
+  border-radius:18px;
+  padding:15px 20px;
+  font-weight:900;
+  color:#001018;
   background:linear-gradient(135deg,var(--blue),var(--green));
   cursor:pointer;
+  box-shadow:0 0 20px rgba(57,255,155,.35);
+  transition:.25s;
+}
+
+button:hover{
+  transform:scale(1.04);
+  box-shadow:0 0 30px rgba(0,200,255,.65);
 }
 
 .status{
-  margin-top:10px;
+  margin-top:12px;
   color:var(--muted);
+  font-size:14px;
+}
+
+.tabs{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding:8px 2px 4px;
+  margin-top:14px;
+}
+
+.tab{
+  flex:0 0 auto;
+  padding:11px 16px;
+  border-radius:999px;
+  border:1px solid rgba(0,200,255,.45);
+  background:rgba(0,200,255,.08);
+  color:white;
+  font-weight:900;
+  cursor:pointer;
+  transition:.25s;
+  white-space:nowrap;
+}
+
+.tab.active,
+.tab:hover{
+  background:linear-gradient(135deg,var(--blue),var(--green));
+  color:#001018;
+  box-shadow:0 0 18px rgba(0,200,255,.7);
 }
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(310px,1fr));
   gap:16px;
 }
 
 .card{
-  background:linear-gradient(180deg,var(--card2),var(--card));
+  background:linear-gradient(180deg,rgba(13,43,92,.98),rgba(7,27,56,.98));
   border:1px solid var(--line);
-  border-radius:24px;
+  border-radius:28px;
   padding:18px;
-  box-shadow:0 10px 30px rgba(0,0,0,.4);
+  box-shadow:0 20px 35px rgba(0,0,0,.35),0 0 25px rgba(0,200,255,.13);
+  animation:pop .45s ease both;
+  position:relative;
+  overflow:hidden;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:linear-gradient(120deg,transparent,rgba(57,255,155,.18),transparent);
+  transform:translateX(-100%);
+  animation:cardshine 4s infinite;
+}
+
+@keyframes cardshine{
+  0%{transform:translateX(-100%)}
+  55%,100%{transform:translateX(100%)}
+}
+
+@keyframes pop{
+  from{opacity:0;transform:translateY(18px) scale(.98)}
+  to{opacity:1;transform:translateY(0) scale(1)}
 }
 
 .card h2{
+  position:relative;
+  z-index:1;
   color:var(--green);
-  font-size:22px;
+  font-size:21px;
   margin-bottom:10px;
-  text-shadow:0 0 12px rgba(57,255,155,.6);
+  text-shadow:0 0 14px rgba(57,255,155,.8);
 }
 
 .meta{
+  position:relative;
+  z-index:1;
   color:var(--muted);
   font-size:13px;
-  margin-bottom:15px;
+  margin-bottom:12px;
+  line-height:1.5;
 }
 
 table{
+  position:relative;
+  z-index:1;
   width:100%;
   border-collapse:collapse;
+  overflow:hidden;
+  border-radius:18px;
 }
 
 th,td{
-  padding:10px;
+  padding:11px 8px;
+  border-bottom:1px solid rgba(255,255,255,.1);
   text-align:left;
-  border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 th{
   color:var(--blue);
+  font-size:13px;
+  text-transform:uppercase;
 }
 
 .milhar{
-  font-size:20px;
-  font-weight:900;
   color:white;
-  text-shadow:0 0 12px rgba(255,255,255,.7);
+  font-size:22px;
+  font-weight:900;
+  text-shadow:0 0 12px white;
 }
 
 .empty{
+  grid-column:1/-1;
   text-align:center;
-  padding:40px;
-  border:1px dashed var(--line);
-  border-radius:18px;
+  padding:35px;
   color:var(--muted);
+  border:1px dashed var(--line);
+  border-radius:22px;
+  background:rgba(255,255,255,.04);
 }
 
 footer{
   text-align:center;
-  padding:30px;
   color:var(--muted);
+  padding:25px;
   font-size:12px;
 }
 
+@media(max-width:600px){
+  .toolbar{grid-template-columns:1fr}
+  button{width:100%}
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>Resultados das Loterias</h1>
-  <div class="sub">
-    Atualização automática em tempo real
-  </div>
+  <div class="logo">Resultados Kelly Menezes JB</div>
+  <div class="sub">Atualização automática • Chama no Milhar</div>
 </header>
 
-<div class="container">
+<main class="container">
 
-  <div class="toolbar">
+  <section class="panel">
+    <div class="toolbar">
+      <select id="filtroLoteria">
+        <option value="todos">Todas as loterias</option>
+        <option value="LOTERIA TRADICIONAL">LOTERIA TRADICIONAL</option>
+        <option value="Loteria Nacional">Loteria Nacional</option>
+        <option value="MALUCA">MALUCA Bahia</option>
+        <option value="PARATODOS BAHIA">PARATODOS BAHIA</option>
+        <option value="LOTECE">LOTECE</option>
+        <option value="PARATODOS">PARATODOS CEARÁ</option>
+        <option value="LBR">LBR</option>
+        <option value="BOA SORTE">BOA SORTE GOIÁS</option>
+        <option value="LOOK">LOOK LOTERIAS</option>
+        <option value="MINAS">MINAS MG</option>
+        <option value="CAMPINA GRANDE">CAMPINA GRANDE PB</option>
+        <option value="LOTEP">LOTEP</option>
+        <option value="PARATODOS PB">PARATODOS PB</option>
+        <option value="AVAL">AVAL Pernambuco</option>
+        <option value="CAMINHO DA SORTE">CAMINHO DA SORTE</option>
+        <option value="LOTERIA POPULAR">LOTERIA POPULAR</option>
+        <option value="NORDESTE">NORDESTE MONTE CARLOS</option>
+        <option value="PT-RIO">PT-RIO</option>
+        <option value="Base Premia">Base Premia RN</option>
+        <option value="Bicho RS">Bicho RS</option>
+        <option value="ABAESE">ABAESE ITABAIANA</option>
+        <option value="BANDEIRANTES">BANDEIRANTES</option>
+        <option value="PT-SP">PT-SP</option>
+      </select>
 
-    <select id="filtroLoteria">
+      <button onclick="location.reload()">Atualizar</button>
+    </div>
 
-      <option value="todos">Todas as loterias</option>
+    <div class="tabs" id="tabs"></div>
 
-      <option value="LOTERIA TRADICIONAL">LOTERIA TRADICIONAL</option>
+    <div class="status" id="status">Carregando resultados...</div>
+  </section>
 
-      <option value="Loteria Nacional">Loteria Nacional</option>
+  <section class="grid" id="resultados"></section>
 
-      <option value="MALUCA">MALUCA Bahia</option>
-
-      <option value="PARATODOS BAHIA">PARATODOS BAHIA</option>
-
-      <option value="LOTECE">LOTECE</option>
-
-      <option value="PARATODOS">PARATODOS CEARÁ</option>
-
-      <option value="LBR">LBR</option>
-
-      <option value="BOA SORTE">BOA SORTE GOIÁS</option>
-
-      <option value="LOOK">LOOK LOTERIAS</option>
-
-      <option value="MINAS">MINAS MG</option>
-
-      <option value="CAMPINA GRANDE">CAMPINA GRANDE PB</option>
-
-      <option value="LOTEP">LOTEP</option>
-
-      <option value="PARATODOS PB">PARATODOS PB</option>
-
-      <option value="AVAL">AVAL Pernambuco</option>
-
-      <option value="CAMINHO DA SORTE">CAMINHO DA SORTE</option>
-
-      <option value="LOTERIA POPULAR">LOTERIA POPULAR</option>
-
-      <option value="NORDESTE">NORDESTE MONTE CARLOS</option>
-
-      <option value="PT-RIO">PT-RIO</option>
-
-      <option value="Base Premia">Base Premia RN</option>
-
-      <option value="Bicho RS">Bicho RS</option>
-
-      <option value="ABAESE">ABAESE ITABAIANA</option>
-
-      <option value="BANDEIRANTES">BANDEIRANTES</option>
-
-      <option value="PT-SP">PT-SP</option>
-
-    </select>
-
-    <button onclick="location.reload()">
-      Atualizar
-    </button>
-
-  </div>
-
-  <div class="status" id="status">
-    Carregando resultados...
-  </div>
-
-  <br>
-
-  <div class="grid" id="resultados"></div>
-
-</div>
+</main>
 
 <footer>
-  Fonte: resultadofacil.com.br
+  Fonte: resultadofacil.com.br • Site informativo
 </footer>
 
 <script type="module">
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-
 import {
   getFirestore,
   collection,
@@ -255,87 +324,112 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const firebaseConfig = {
-
   apiKey: "AIzaSyC6iyfXbCt-fHL5Wt5zNS5myKq-njJzbms",
   authDomain: "resultados-loterias-3979a.firebaseapp.com",
   projectId: "resultados-loterias-3979a",
-  storageBucket: "resultados-loterias-3979a.appspot.com",
+  storageBucket: "resultados-loterias-3979a.firebasestorage.app",
   messagingSenderId: "109416331388",
   appId: "1:109416331388:web:8e04783520d08adc87b1f9"
-
 };
 
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
 
 const container = document.getElementById("resultados");
-
-const status = document.getElementById("status");
-
+const statusEl = document.getElementById("status");
 const filtro = document.getElementById("filtroLoteria");
+const tabs = document.getElementById("tabs");
 
 let todosResultados = [];
 
-function escapeHtml(text){
+const atalhos = [
+  ["todos","Todas"],
+  ["PT-SP","PT-SP"],
+  ["PT-RIO","PT-RIO"],
+  ["LOOK","LOOK"],
+  ["BANDEIRANTES","BANDEIRANTES"],
+  ["LOTECE","LOTECE"],
+  ["MALUCA","MALUCA"],
+  ["BOA SORTE","BOA SORTE"]
+];
 
-  return String(text || "")
-  .replace(/[&<>"']/g, m => ({
+tabs.innerHTML = atalhos.map((a,i)=>`
+  <div class="tab ${i===0 ? "active":""}" data-value="${a[0]}">${a[1]}</div>
+`).join("");
+
+tabs.addEventListener("click", e=>{
+  const tab = e.target.closest(".tab");
+  if(!tab) return;
+
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  tab.classList.add("active");
+
+  filtro.value = tab.dataset.value;
+  render();
+});
+
+filtro.addEventListener("change", ()=>{
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  render();
+});
+
+function escapeHtml(text){
+  return String(text || "").replace(/[&<>"']/g, m => ({
     "&":"&amp;",
     "<":"&lt;",
     ">":"&gt;",
     '"':"&quot;",
     "'":"&#039;"
   }[m]));
+}
 
+function normalizar(texto){
+  return String(texto || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"");
 }
 
 function render(){
-
   const valor = filtro.value;
-
-  let filtrados = todosResultados;
+  let filtrados = [...todosResultados];
 
   if(valor !== "todos"){
-
-    filtrados = todosResultados.filter(r =>
-      r.titulo.toLowerCase().includes(valor.toLowerCase())
+    filtrados = filtrados.filter(r =>
+      normalizar(r.titulo).includes(normalizar(valor))
     );
-
   }
 
+  filtrados = filtrados.slice(0, 30);
+
   if(!filtrados.length){
-
-    container.innerHTML = `
-      <div class="empty">
-        Nenhum resultado encontrado.
-      </div>
-    `;
-
+    container.innerHTML = `<div class="empty">Nenhum resultado encontrado para essa loteria.</div>`;
     return;
   }
 
   container.innerHTML = filtrados.map(item => {
-
     let premios = [];
 
     try{
-
-      premios = JSON.parse(item.premios);
-
-    }catch(e){}
+      premios = typeof item.premios === "string"
+        ? JSON.parse(item.premios)
+        : Array.isArray(item.premios)
+          ? item.premios
+          : [];
+    }catch(e){
+      premios = [];
+    }
 
     return `
-      <div class="card">
-
-        <h2>${escapeHtml(item.titulo)}</h2>
+      <article class="card">
+        <h2>${escapeHtml(item.titulo || "Resultado")}</h2>
 
         <div class="meta">
-          ${escapeHtml(item.data)}
+          Data: ${escapeHtml(item.data || "")}<br>
+          Atualizado em: ${escapeHtml(item.criadoEm || "")}
         </div>
 
         <table>
-
           <thead>
             <tr>
               <th>Prêmio</th>
@@ -345,43 +439,41 @@ function render(){
           </thead>
 
           <tbody>
-
-            ${premios.map(p => `
+            ${premios.map((p,i)=>`
               <tr>
-                <td>${escapeHtml(p.posicao)}</td>
-                <td class="milhar">${escapeHtml(p.milhar)}</td>
-                <td>${escapeHtml(p.bicho)}</td>
+                <td>${escapeHtml(p.posicao || (i+1)+"º")}</td>
+                <td class="milhar">${escapeHtml(p.milhar || "")}</td>
+                <td>${escapeHtml(p.bicho || p.grupo || "")}</td>
               </tr>
             `).join("")}
-
           </tbody>
-
         </table>
-
-      </div>
+      </article>
     `;
-
   }).join("");
-
 }
 
-filtro.addEventListener("change", render);
-
 onSnapshot(collection(db, "resultados"), snap => {
-
   todosResultados = snap.docs.map(doc => ({
-    id:doc.id,
+    id: doc.id,
     ...doc.data()
   }));
 
-  status.innerHTML =
-    "Última atualização: " +
-    new Date().toLocaleString("pt-BR");
+  todosResultados.sort((a,b)=>{
+    const dataA = a.criadoEm || "";
+    const dataB = b.criadoEm || "";
+    return dataB.localeCompare(dataA);
+  });
+
+  statusEl.textContent =
+    "Última atualização da tela: " + new Date().toLocaleString("pt-BR");
 
   render();
 
+}, err => {
+  console.error(err);
+  statusEl.textContent = "Erro ao carregar resultados. Confira as regras do Firebase.";
 });
-
 </script>
 
 </body>
