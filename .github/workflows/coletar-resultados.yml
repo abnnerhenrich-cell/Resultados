@@ -1,9 +1,9 @@
 name: Coletar resultados
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "*/5 * * * *"
-  workflow_dispatch:
 
 jobs:
   coletar:
@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Instalar Python
+      - name: Configurar Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -22,5 +22,5 @@ jobs:
         run: |
           pip install requests beautifulsoup4 lxml
 
-      - name: Rodar coletor
+      - name: Executar coletor
         run: python coletor.py
