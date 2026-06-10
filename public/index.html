@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -7,54 +8,47 @@
 
 <style>
 :root{
-  --bg:#020617;
-  --card:#07172d;
-  --card2:#0b1f3a;
+  --bg:#050b16;
+  --panel:#0b1628;
+  --card:#0f1f36;
   --blue:#00c8ff;
   --green:#39ff9b;
   --text:#f8fafc;
-  --muted:#9fb3cf;
+  --muted:#94a3b8;
   --line:rgba(255,255,255,.10);
 }
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
   min-height:100vh;
-  background:linear-gradient(180deg,#071936,#020617 45%,#000);
+  font-family:Arial,Helvetica,sans-serif;
+  background:linear-gradient(180deg,#07162c,#020617 55%,#000);
   color:var(--text);
-  font-family:Arial, Helvetica, sans-serif;
 }
 
 .container{
-  width:min(1180px,94%);
+  width:min(1200px,94%);
   margin:auto;
-  padding:22px 0 45px;
+  padding:22px 0 44px;
 }
 
 .hero{
-  background:rgba(3,14,30,.88);
-  border:1px solid rgba(0,200,255,.16);
+  background:rgba(11,22,40,.9);
+  border:1px solid var(--line);
   border-radius:26px;
   padding:26px 18px;
   text-align:center;
   margin-bottom:16px;
-  box-shadow:0 18px 40px rgba(0,0,0,.32);
 }
 
 .hero h1{
   font-size:clamp(30px,5vw,54px);
   font-weight:900;
-  line-height:1.05;
+  letter-spacing:-1px;
 }
 
-.hero h1 span{
-  color:var(--blue);
-}
+.hero h1 span{color:var(--blue)}
 
 .hero p{
   margin-top:10px;
@@ -64,15 +58,15 @@ body{
 }
 
 .topbar{
-  background:rgba(3,14,30,.9);
+  position:sticky;
+  top:10px;
+  z-index:10;
+  background:rgba(5,11,22,.88);
   border:1px solid var(--line);
   border-radius:22px;
   padding:14px;
   margin-bottom:18px;
-  position:sticky;
-  top:8px;
-  z-index:10;
-  backdrop-filter:blur(10px);
+  backdrop-filter:blur(12px);
 }
 
 .controls{
@@ -81,17 +75,430 @@ body{
   gap:10px;
 }
 
-select{
-  width:100%;
-  background:#08192f;
-  color:white;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:14px;
-  padding:14px;
+select,button{
+  border-radius:15px;
+  border:1px solid var(--line);
+  padding:14px 15px;
   font-size:15px;
+  font-weight:800;
+}
+
+select{
+  background:#0b1628;
+  color:white;
   outline:none;
 }
 
 button{
+  background:linear-gradient(135deg,var(--blue),var(--green));
+  color:#001018;
   border:0;
+  cursor:pointer;
+}
+
+.tags{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.tag{
+  padding:9px 13px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  color:#dbeafe;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.tag.active,.tag:hover{
+  background:rgba(0,200,255,.14);
+  border-color:rgba(0,200,255,.35);
+  color:white;
+}
+
+.status{
+  margin-top:12px;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+  gap:14px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:16px;
+  box-shadow:0 14px 30px rgba(0,0,0,.25);
+}
+
+.cardHeader{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
+  margin-bottom:12px;
+}
+
+.card h2{
+  font-size:18px;
+  line-height:1.3;
+}
+
+.timePill{
+  flex:0 0 auto;
+  background:rgba(0,200,255,.12);
+  color:var(--blue);
+  border:1px solid rgba(0,200,255,.22);
+  padding:7px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+}
+
+.info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-bottom:12px;
+}
+
+.infoItem{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
   border-radius:14px;
+  padding:10px;
+}
+
+.infoLabel{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  text-transform:uppercase;
+  font-weight:900;
+  margin-bottom:4px;
+}
+
+.infoValue{
+  font-size:13px;
+  font-weight:800;
+}
+
+.loteriaNome{color:var(--green)}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  overflow:hidden;
+  border-radius:14px;
+}
+
+th,td{
+  padding:11px 9px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  text-align:left;
+}
+
+th{
+  color:var(--muted);
+  font-size:11px;
+  text-transform:uppercase;
+}
+
+td{
+  font-size:14px;
+  background:rgba(255,255,255,.025);
+}
+
+.milhar{
+  font-size:20px;
+  font-weight:900;
+  color:white;
+}
+
+.empty{
+  grid-column:1/-1;
+  text-align:center;
+  padding:45px 15px;
+  color:var(--muted);
+  border:1px dashed var(--line);
+  border-radius:20px;
+}
+
+footer{
+  margin-top:28px;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+}
+
+@media(max-width:700px){
+  .container{width:min(100% - 18px,1200px)}
+  .controls{grid-template-columns:1fr}
+  button{width:100%}
+  .grid{grid-template-columns:1fr}
+  .info{grid-template-columns:1fr}
+  .cardHeader{display:block}
+  .timePill{display:inline-block;margin-top:8px}
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <section class="hero">
+    <h1>Resultados <span>Kelly Menezes JB</span></h1>
+    <p>Resultados automáticos por loteria e horário</p>
+  </section>
+
+  <section class="topbar">
+    <div class="controls">
+      <select id="loteriaSelect">
+        <option value="todas">Todas as loterias</option>
+      </select>
+
+      <button onclick="aplicarFiltro()">Atualizar tela</button>
+    </div>
+
+    <div class="tags" id="tags"></div>
+    <div class="status" id="status">Carregando resultados...</div>
+  </section>
+
+  <main class="grid" id="gridResultados"></main>
+
+  <footer>© Kelly Menezes JB • Resultados automáticos</footer>
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getFirestore, collection, query, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC6iyfXbCt-fHL5Wt5zNS5myKq-njJzbms",
+  authDomain: "resultados-loterias-3979a.firebaseapp.com",
+  projectId: "resultados-loterias-3979a",
+  storageBucket: "resultados-loterias-3979a.firebasestorage.app",
+  messagingSenderId: "109416331388",
+  appId: "1:109416331388:web:8e04783520d08adc87b1f9"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const grid = document.getElementById("gridResultados");
+const statusEl = document.getElementById("status");
+const select = document.getElementById("loteriaSelect");
+const tags = document.getElementById("tags");
+
+let todosResultados = [];
+
+function escapeHtml(texto){
+  return String(texto || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;");
+}
+
+function normalizar(texto){
+  return String(texto || "")
+    .toUpperCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .trim();
+}
+
+function ordem(item){
+  return Number(item.dataOrdenacao || item.atualizado || item.createdAt || 0);
+}
+
+function limparDocumentosInvalidos(lista){
+  return lista.filter(item => {
+    const titulo = String(item.titulo || "").toLowerCase();
+    const loteria = String(item.loteria || "").toLowerCase();
+
+    if(!item.loteria) return false;
+    if(!item.premios) return false;
+    if(!titulo.includes("resultado do dia")) return false;
+
+    const lixo = ["function","window","document","print","script","__","const ","var "];
+
+    for(const palavra of lixo){
+      if(titulo.includes(palavra)) return false;
+      if(loteria.includes(palavra)) return false;
+    }
+
+    return true;
+  });
+}
+
+function renderizar(lista){
+  lista = [...lista].sort((a,b)=>ordem(b)-ordem(a));
+
+  if(!lista.length){
+    grid.innerHTML = `<div class="empty">Nenhum resultado encontrado.</div>`;
+    return;
+  }
+
+  grid.innerHTML = lista.map(item => {
+    let premios = [];
+
+    try{
+      premios = typeof item.premios === "string"
+        ? JSON.parse(item.premios)
+        : Array.isArray(item.premios)
+          ? item.premios
+          : [];
+    }catch(e){
+      premios = [];
+    }
+
+    return `
+      <article class="card">
+        <div class="cardHeader">
+          <h2>${escapeHtml(item.titulo)}</h2>
+          <div class="timePill">${escapeHtml(item.hora || "Sem horário")}</div>
+        </div>
+
+        <div class="info">
+          <div class="infoItem">
+            <span class="infoLabel">Loteria</span>
+            <span class="infoValue loteriaNome">${escapeHtml(item.loteria || "")}</span>
+          </div>
+
+          <div class="infoItem">
+            <span class="infoLabel">Data</span>
+            <span class="infoValue">${escapeHtml(item.data || "")}</span>
+          </div>
+
+          <div class="infoItem">
+            <span class="infoLabel">Horário</span>
+            <span class="infoValue">${escapeHtml(item.hora || "")}</span>
+          </div>
+
+          <div class="infoItem">
+            <span class="infoLabel">Atualização</span>
+            <span class="infoValue">${escapeHtml(item.atualizadoFonte || "")}</span>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Prêmio</th>
+              <th>Milhar</th>
+              <th>Bicho</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            ${premios.map(p => `
+              <tr>
+                <td>${escapeHtml(p.posicao || "")}</td>
+                <td class="milhar">${escapeHtml(p.milhar || "")}</td>
+                <td>${escapeHtml(p.bicho || "")}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </article>
+    `;
+  }).join("");
+}
+
+window.aplicarFiltro = function(){
+  const valor = select.value;
+
+  if(valor === "todas"){
+    renderizar(todosResultados);
+    return;
+  }
+
+  const filtrados = todosResultados.filter(item =>
+    normalizar(item.loteria) === normalizar(valor)
+  );
+
+  renderizar(filtrados);
+};
+
+window.filtrarRapido = function(nome, el){
+  document.querySelectorAll(".tag").forEach(t => t.classList.remove("active"));
+  el.classList.add("active");
+  select.value = nome;
+  aplicarFiltro();
+};
+
+function montarFiltros(){
+  const loterias = [...new Set(todosResultados.map(r => r.loteria).filter(Boolean))].sort();
+  const valorAtual = select.value;
+
+  select.innerHTML = `<option value="todas">Todas as loterias</option>`;
+
+  loterias.forEach(nome => {
+    const opt = document.createElement("option");
+    opt.value = nome;
+    opt.textContent = nome;
+    select.appendChild(opt);
+  });
+
+  if(valorAtual === "todas" || loterias.includes(valorAtual)){
+    select.value = valorAtual;
+  }
+
+  const principais = [
+    "todas",
+    "PT-SP",
+    "PT-RIO",
+    "LOOK LOTERIAS",
+    "BANDEIRANTES",
+    "LOTECE",
+    "MALUCA BAHIA",
+    "BOA SORTE GOIÁS"
+  ];
+
+  tags.innerHTML = principais.map((nome, i) => `
+    <div class="tag ${i === 0 ? "active" : ""}" onclick="filtrarRapido('${nome}', this)">
+      ${nome === "todas" ? "Todas" : nome}
+    </div>
+  `).join("");
+}
+
+select.addEventListener("change", aplicarFiltro);
+
+const q = query(collection(db, "resultados"));
+
+onSnapshot(q, snap => {
+  todosResultados = limparDocumentosInvalidos(
+    snap.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }))
+  );
+
+  montarFiltros();
+
+  statusEl.innerHTML =
+    "Última atualização da tela: " + new Date().toLocaleString("pt-BR");
+
+  aplicarFiltro();
+}, err => {
+  console.error(err);
+  statusEl.textContent = "Erro ao carregar resultados.";
+});
+</script>
+
+</body>
+</html>
+```
+
