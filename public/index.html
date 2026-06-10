@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -140,35 +141,11 @@ button{
   box-shadow:0 14px 30px rgba(0,0,0,.25);
 }
 
-.cardHeader{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:flex-start;
-  margin-bottom:12px;
-}
-
-.card h2{
-  font-size:18px;
-  line-height:1.3;
-}
-
-.timePill{
-  flex:0 0 auto;
-  background:rgba(0,200,255,.12);
-  color:var(--blue);
-  border:1px solid rgba(0,200,255,.22);
-  padding:7px 10px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:900;
-}
-
 .info{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:8px;
-  margin-bottom:12px;
+  margin-bottom:13px;
 }
 
 .infoItem{
@@ -193,6 +170,12 @@ button{
 }
 
 .loteriaNome{color:var(--green)}
+
+.horarioDestaque{
+  color:var(--blue);
+  font-size:16px;
+  font-weight:900;
+}
 
 table{
   width:100%;
@@ -246,8 +229,6 @@ footer{
   button{width:100%}
   .grid{grid-template-columns:1fr}
   .info{grid-template-columns:1fr}
-  .cardHeader{display:block}
-  .timePill{display:inline-block;margin-top:8px}
 }
 </style>
 </head>
@@ -257,7 +238,7 @@ footer{
 
   <section class="hero">
     <h1>Resultados <span>Kelly Menezes JB</span></h1>
-    <p>Resultados automáticos por loteria e horário</p>
+    <p>Chama no milhar!</p>
   </section>
 
   <section class="topbar">
@@ -275,7 +256,7 @@ footer{
 
   <main class="grid" id="gridResultados"></main>
 
-  <footer>© Kelly Menezes JB • Resultados automáticos</footer>
+  <footer>© Kelly Menezes JB •</footer>
 
 </div>
 
@@ -329,7 +310,6 @@ function limparDocumentosInvalidos(lista){
 
     if(!item.loteria) return false;
     if(!item.premios) return false;
-    if(!titulo.includes("resultado do dia")) return false;
 
     const lixo = ["function","window","document","print","script","__","const ","var "];
 
@@ -365,11 +345,6 @@ function renderizar(lista){
 
     return `
       <article class="card">
-        <div class="cardHeader">
-          <h2>${escapeHtml(item.titulo)}</h2>
-          <div class="timePill">${escapeHtml(item.hora || "Sem horário")}</div>
-        </div>
-
         <div class="info">
           <div class="infoItem">
             <span class="infoLabel">Loteria</span>
@@ -377,13 +352,13 @@ function renderizar(lista){
           </div>
 
           <div class="infoItem">
-            <span class="infoLabel">Data</span>
-            <span class="infoValue">${escapeHtml(item.data || "")}</span>
+            <span class="infoLabel">Horário</span>
+            <span class="infoValue horarioDestaque">${escapeHtml(item.hora || item.horario || "")}</span>
           </div>
 
           <div class="infoItem">
-            <span class="infoLabel">Horário</span>
-            <span class="infoValue">${escapeHtml(item.hora || "")}</span>
+            <span class="infoLabel">Data</span>
+            <span class="infoValue">${escapeHtml(item.data || "")}</span>
           </div>
 
           <div class="infoItem">
@@ -499,3 +474,4 @@ onSnapshot(q, snap => {
 
 </body>
 </html>
+```
