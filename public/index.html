@@ -7,311 +7,111 @@
 <title>Resultados Kelly Menezes JB</title>
 
 <style>
-:root{
-  --bg:#040a14; --card:#0d1a2e; --card2:#10213a;
-  --blue:#22d3ee; --green:#34f5a1; --gold:#fbbf24;
-  --text:#f1f5f9; --muted:#8b9bb4; --line:rgba(148,163,184,.16);
-  --grad:linear-gradient(135deg,var(--blue),var(--green));
-}
+:root{--bg:#07202d;--panel:#0c2238;--panel2:#11294a;--line:rgba(139,196,236,.18);--text:#eef6ff;--muted:#9db2c9;--blue:#59d9ff;--green:#58efbb;--gold:#ffd16b;--grad:linear-gradient(110deg,#66dfff,#63f0bc)}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{
-  min-height:100vh;color:var(--text);
-  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  background:
-    radial-gradient(900px 420px at 15% -5%,rgba(34,211,238,.16),transparent 60%),
-    radial-gradient(800px 400px at 100% 0%,rgba(52,245,161,.10),transparent 60%),
-    linear-gradient(180deg,#07142a,var(--bg) 55%,#000) fixed;
-}
-.container{width:min(1200px,94%);margin:auto;padding:22px 0 48px}
+html{-webkit-text-size-adjust:100%}
+body{min-height:100vh;color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  background:radial-gradient(ellipse 900px 480px at 8% -8%,rgba(30,140,190,.26),transparent 70%),
+             radial-gradient(ellipse 700px 420px at 100% 10%,rgba(40,200,170,.10),transparent 70%),
+             linear-gradient(160deg,#08212f,#081b2c 55%,#06121f) fixed}
+.container{width:min(1240px,100% - 24px);margin:auto;padding:14px 0 40px}
 
-.hero{
-  position:relative;overflow:hidden;text-align:center;
-  background:linear-gradient(160deg,rgba(16,33,58,.92),rgba(7,18,35,.92));
-  border:1px solid var(--line);border-radius:28px;
-  padding:34px 18px 30px;margin-bottom:16px;
-  box-shadow:0 20px 50px rgba(0,0,0,.35);
-}
-.hero::before{
-  content:"";position:absolute;left:50%;top:0;width:60%;height:3px;
-  transform:translateX(-50%);background:var(--grad);border-radius:0 0 6px 6px;
-}
-.hero h1{font-size:clamp(28px,5vw,52px);font-weight:900;letter-spacing:-1.2px;line-height:1.1}
-.hero h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{
-  display:inline-block;margin-top:14px;padding:7px 16px;border-radius:999px;
-  background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.25);
-  color:#bae6fd;font-size:14px;font-weight:800;letter-spacing:.3px;
-}
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 2px 14px}
+.brand h1{font-size:clamp(21px,3.6vw,32px);font-weight:900;letter-spacing:-.6px;line-height:1.1}
+.brand h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand p{margin-top:4px;color:var(--muted);font-size:13px;font-weight:700}
+.quicklink{flex:0 0 auto;padding:9px 15px;border-radius:999px;border:1px solid rgba(89,217,255,.35);background:rgba(89,217,255,.10);color:#bdf1ff;font-size:13px;font-weight:800;text-decoration:none;transition:background .2s}
+.quicklink:hover{background:rgba(89,217,255,.22)}
 
-.topbar{
-  position:sticky;top:10px;z-index:10;
-  background:rgba(4,10,20,.82);border:1px solid var(--line);border-radius:22px;
-  padding:14px;margin-bottom:20px;
-  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
-  box-shadow:0 10px 30px rgba(0,0,0,.35);
-}
-.controls{display:grid;grid-template-columns:1fr auto;gap:10px}
-select,button{
-  border-radius:14px;border:1px solid var(--line);
-  padding:13px 16px;font-size:15px;font-weight:800;font-family:inherit;
-}
-select{
-  background:var(--card);color:var(--text);outline:none;cursor:pointer;
-  transition:border-color .2s,box-shadow .2s;
-}
-select:focus,button:focus-visible,.tag:focus-visible{
-  border-color:var(--blue);box-shadow:0 0 0 3px rgba(34,211,238,.25);outline:none;
-}
-button{
-  background:var(--grad);color:#021018;border:0;cursor:pointer;
-  transition:transform .15s,filter .2s,box-shadow .2s;
-  box-shadow:0 6px 18px rgba(34,211,238,.25);
-}
-button:hover{filter:brightness(1.08);transform:translateY(-1px)}
-button:active{transform:translateY(0) scale(.98)}
+.filtros{position:sticky;top:8px;z-index:10;display:grid;gap:9px;padding:11px 12px;border:1px solid var(--line);border-radius:18px;
+  background:rgba(7,25,41,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.linha{display:flex;align-items:center;gap:10px;min-width:0}
+.rotulo{flex:0 0 52px;color:var(--muted);font-size:10.5px;font-weight:900;letter-spacing:.8px;text-transform:uppercase}
+.tags,.datas{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1}
+.tags::-webkit-scrollbar,.datas::-webkit-scrollbar{display:none}
+.tag{flex:0 0 auto;white-space:nowrap;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(139,196,236,.07);color:#d9ecfb;font-size:12.5px;font-weight:800;cursor:pointer;user-select:none;transition:all .18s}
+.tag:hover{background:rgba(89,217,255,.16);border-color:rgba(89,217,255,.5)}
+.tag.active{background:var(--grad);border-color:transparent;color:#04202e}
+.tag:focus-visible,button:focus-visible,.quicklink:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 
-.tags{
-  display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;
-}
-.tag{
-  padding:8px 14px;border-radius:999px;border:1px solid var(--line);
-  background:rgba(255,255,255,.04);color:#cbd5e1;
-  font-size:12.5px;font-weight:800;cursor:pointer;user-select:none;
-  transition:all .18s;
-}
-.tag:hover{background:rgba(34,211,238,.12);border-color:rgba(34,211,238,.4);color:#fff}
-.tag.active{background:var(--grad);border-color:transparent;color:#021018}
+.statusLinha{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 4px 0}
+.status{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulso 2s infinite}
+@keyframes pulso{70%{box-shadow:0 0 0 7px rgba(88,239,187,0)}0%{box-shadow:0 0 0 0 rgba(88,239,187,.6)}}
+.btnAtualizar{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:#d9ecfb;font:inherit;font-size:12px;font-weight:800;cursor:pointer}
+.btnAtualizar:hover{background:rgba(89,217,255,.16)}
 
-.status{
-  margin-top:12px;text-align:center;color:var(--muted);font-size:12.5px;
-}
-.status::before{
-  content:"";display:inline-block;width:7px;height:7px;margin-right:7px;border-radius:50%;
-  background:var(--green);box-shadow:0 0 0 0 rgba(52,245,161,.6);
-  animation:pulso 2s infinite;vertical-align:middle;
-}
-@keyframes pulso{70%{box-shadow:0 0 0 7px rgba(52,245,161,0)}100%{box-shadow:0 0 0 0 rgba(52,245,161,0)}}
-
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:16px}
-
-.card{
-  position:relative;overflow:hidden;
-  background:linear-gradient(180deg,var(--card2),var(--card));
-  border:1px solid var(--line);border-radius:22px;padding:16px;
-  box-shadow:0 14px 34px rgba(0,0,0,.30);
-  animation:entra .25s ease both;
-  transition:transform .2s,border-color .2s,box-shadow .2s;
-}
-.card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--grad);opacity:.9}
-.card:hover{transform:translateY(-3px);border-color:rgba(34,211,238,.35);box-shadow:0 18px 40px rgba(0,0,0,.42)}
-@keyframes entra{from{opacity:0}to{opacity:1}}
-
-.info{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:4px 0 14px}
-.infoItem{
-  background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.06);
-  border-radius:14px;padding:10px 12px;
-}
-.infoLabel{
-  display:block;color:var(--muted);font-size:10.5px;letter-spacing:.8px;
-  text-transform:uppercase;font-weight:900;margin-bottom:4px;
-}
-.infoValue{font-size:13.5px;font-weight:800}
-.loteriaNome{color:var(--green)}
-.horarioDestaque{color:var(--blue);font-size:17px;font-weight:900}
-
-table{
-  width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;
-  border:1px solid rgba(255,255,255,.07);border-radius:14px;
-}
-th,td{padding:11px 12px;border-bottom:1px solid rgba(255,255,255,.06);text-align:left}
-th{
-  color:var(--muted);font-size:10.5px;letter-spacing:.8px;text-transform:uppercase;
-  background:rgba(255,255,255,.04);
-}
-td{font-size:14px;background:rgba(255,255,255,.02);color:#cbd5e1}
-tbody tr:last-child td{border-bottom:0}
-tbody tr:hover td{background:rgba(34,211,238,.06)}
-tbody tr:first-child td{background:rgba(251,191,36,.08)}
-tbody tr:first-child .milhar{color:var(--gold)}
-.milhar{
-  font-size:21px;font-weight:900;color:#fff;letter-spacing:1.5px;
-  font-variant-numeric:tabular-nums;
-}
-
-.empty{
-  grid-column:1/-1;text-align:center;padding:50px 16px;color:var(--muted);
-  border:1px dashed var(--line);border-radius:22px;background:rgba(255,255,255,.02);
-}
-
-footer{margin-top:30px;text-align:center;color:var(--muted);font-size:13px}
-
-@media(max-width:700px){
-  .container{width:min(100% - 18px,1200px);padding-top:14px}
-  .hero{padding:26px 14px 24px;border-radius:24px}
-  .controls{grid-template-columns:1fr}
-  button{width:100%}
-  .tags{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
-  .tags::-webkit-scrollbar{display:none}
-  .tag{white-space:nowrap;flex:0 0 auto}
-  .grid{grid-template-columns:1fr}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*::before{animation:none!important;transition:none!important}
-}
-
-/* Refinamento visual 2026 — camada CSS, sem alterações na lógica */
-:root{--bg:#060b17;--card:#0d1728;--card2:#13233b;--blue:#59d9ff;--green:#58efbb;--gold:#ffd16b;--text:#f5f8ff;--muted:#a4b4cd;--line:rgba(159,187,224,.18);--grad:linear-gradient(110deg,#66dfff,#63f0bc)}
-body{background:radial-gradient(ellipse 900px 450px at 50% -120px,rgba(38,125,183,.26),transparent 72%),radial-gradient(ellipse 550px 550px at 100% 75%,rgba(15,89,93,.12),transparent 75%),#060b17;line-height:1.5}
-.container{width:min(1280px,94%);padding-top:30px}
-.hero{padding:47px 24px 40px;margin-bottom:22px;border-radius:28px;background:linear-gradient(120deg,rgba(24,49,77,.96),rgba(10,21,39,.97));border-color:rgba(124,201,240,.23);box-shadow:0 22px 65px rgba(0,0,0,.25),inset 0 1px rgba(255,255,255,.06)}
-.hero::before{height:4px;width:42%;box-shadow:0 0 30px rgba(79,219,218,.35)}
-.hero::after{content:"";position:absolute;width:270px;height:270px;right:-110px;top:-150px;border:1px solid rgba(103,226,225,.13);border-radius:50%;pointer-events:none}
-.hero h1{font-size:clamp(29px,4.4vw,55px);letter-spacing:-1.7px;text-wrap:balance}
-.hero h1 span{display:block;margin-top:7px}
-.hero p{margin-top:20px;padding:8px 19px;background:rgba(83,220,222,.09);color:#d4f9ff;border-color:rgba(105,230,232,.25);font-size:13px;letter-spacing:.6px;text-transform:uppercase}
-.topbar{top:12px;padding:17px 19px 15px;border-radius:20px;background:rgba(9,19,35,.93);border-color:rgba(144,188,218,.21);box-shadow:0 15px 42px rgba(0,0,0,.26)}
-.controls{gap:12px;grid-template-columns:minmax(0,1fr) auto}
-select,button{min-height:49px;border-radius:12px;font-size:14px}
-select{background:#12233a;border-color:rgba(139,183,221,.23);padding-inline:17px}
-button{padding-inline:25px;box-shadow:0 8px 24px rgba(55,204,217,.16)}
-.tags{gap:9px;margin-top:15px}
-.tag{padding:9px 15px;font-size:12px;border-color:rgba(155,185,219,.22);background:rgba(151,190,232,.06)}
-.tag.active{box-shadow:0 4px 15px rgba(69,225,211,.15)}
-.status{margin-top:15px;font-size:12px;color:#b4c5d8}
-.grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:20px}
-.card{padding:20px;border-radius:20px;background:linear-gradient(160deg,rgba(22,41,66,.98),rgba(11,22,39,.99));border-color:rgba(141,179,217,.19);box-shadow:0 16px 35px rgba(0,0,0,.23)}
-.card::before{height:3px}
-.card:hover{transform:translateY(-4px);border-color:rgba(91,218,237,.42);box-shadow:0 20px 45px rgba(0,0,0,.33)}
-.info{gap:10px;margin:3px 0 18px}
-.infoItem{padding:12px 14px;border-radius:12px;background:rgba(123,175,226,.055);border-color:rgba(145,190,230,.11);min-width:0}
-.infoLabel{font-size:10px;letter-spacing:1px;margin-bottom:5px;color:#9cacc6}
-.infoValue{display:block;overflow-wrap:anywhere;font-size:14px}
-.loteriaNome{color:#73f3c7;font-size:15px}
-.horarioDestaque{color:#7bdeff;font-size:20px}
-table{border-radius:12px;border-color:rgba(142,183,225,.16)}
-th,td{padding:12px 13px;border-color:rgba(164,197,229,.09)}
-th{background:rgba(128,173,217,.09);color:#b7c9e0;font-size:10px}
-td{background:rgba(9,18,32,.32);font-size:13px;color:#dbe6f5}
-tbody tr:nth-child(even) td{background:rgba(132,178,223,.035)}
-tbody tr:first-child td{background:rgba(255,209,107,.10)}
-tbody tr:first-child td:first-child{color:#ffd16b;font-weight:900}
-.milhar{font-size:clamp(21px,2vw,25px);letter-spacing:1.7px;color:#f8fbff}
-tbody tr:first-child .milhar{color:#ffdc85;text-shadow:0 0 18px rgba(255,200,82,.13)}
-.empty{padding:70px 20px;border-radius:20px;font-size:15px}
-footer{padding:12px 0 20px;color:#8d9fb9}
-@media(max-width:700px){.container{width:calc(100% - 22px);padding-top:12px}.hero{padding:34px 16px 30px;margin-bottom:14px;border-radius:21px}.hero h1{letter-spacing:-1px}.topbar{top:7px;padding:13px;border-radius:17px;margin-bottom:16px}.controls{grid-template-columns:1fr;gap:9px}button{width:100%}.tags{margin-top:13px}.grid{gap:14px}.card{padding:14px;border-radius:17px}.infoItem{padding:10px}.milhar{font-size:23px}th,td{padding:10px 9px}}
-@media(max-width:370px){.milhar{font-size:20px;letter-spacing:.8px}.info{gap:7px}.infoValue{font-size:12px}th,td{padding:9px 7px}}
-
-
-/* Kelly Central inspired visual layer — decorative only, scripts untouched */
-:root{--bg:#07202d;--card:#0c2238;--card2:#10294a;--blue:#59d9ff;--green:#58efbb;--gold:#ffd16b;--muted:#a9bdd3;--line:rgba(139,196,236,.20);--grad:linear-gradient(110deg,#66dfff,#63f0bc)}
-body{background:radial-gradient(ellipse 800px 540px at 10% 0%,rgba(30,140,190,.26),transparent 75%),radial-gradient(ellipse 800px 500px at 95% 25%,rgba(40,200,170,.12),transparent 72%),linear-gradient(155deg,#08212f,#081b2c 52%,#06121f) fixed}
-.container{position:relative;isolation:isolate}
-.container:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.2) .8px,transparent .8px);background-size:33px 33px;-webkit-mask-image:linear-gradient(to bottom,#000,transparent 65%);mask-image:linear-gradient(to bottom,#000,transparent 65%);opacity:.22}
-.hero{isolation:isolate;background:linear-gradient(120deg,rgba(14,50,80,.97),rgba(10,31,55,.97) 60%,rgba(8,52,62,.92));border:1px solid rgba(124,201,240,.30);padding:55px 22px 37px;box-shadow:0 25px 80px rgba(20,100,150,.26),inset 0 1px rgba(255,255,255,.13)}
-.hero:before{width:75%;height:4px;background:var(--grad);box-shadow:0 0 26px rgba(80,220,230,.50)}
-.hero:after{width:330px;height:330px;top:-175px;right:-75px;border:32px solid rgba(103,226,225,.09);box-shadow:0 0 0 32px rgba(255,255,255,.018);animation:orb 13s ease-in-out infinite alternate}
-@keyframes orb{to{transform:translate(-40px,45px) rotate(20deg)}}
-.hero h1{position:relative;z-index:1;font-size:clamp(32px,5vw,62px);line-height:1.07;text-shadow:0 5px 28px rgba(0,0,0,.2)}
-.hero h1 span{background:linear-gradient(95deg,#8ee8ff,#fff 50%,#90f7cf);background-clip:text;-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 4px 16px rgba(90,220,230,.25))}
-.hero p{position:relative;z-index:1;color:#d4f9ff;border:1px solid rgba(105,230,232,.30);background:rgba(83,220,222,.10);box-shadow:0 0 20px rgba(80,220,230,.10)}
-.brand-kicker{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);padding:7px 13px;border-radius:999px;color:#d4f9ff;font-size:11px;font-weight:900;letter-spacing:2px;margin-bottom:17px;text-transform:uppercase}
-.brand-kicker:before{content:"✦";color:#ffd879;font-size:16px;animation:twinkle 2.5s ease-in-out infinite}
-@keyframes twinkle{50%{opacity:.35;transform:scale(.75) rotate(25deg)}}
-.hero-spark{position:absolute;pointer-events:none;font-size:29px;color:#ffe2a0;text-shadow:0 0 25px rgba(255,220,126,.7);animation:floaty 5s ease-in-out infinite}
-.hero-spark.one{top:24%;left:7%}.hero-spark.two{right:9%;bottom:20%;font-size:20px;animation-delay:-2s}
-@keyframes floaty{50%{transform:translateY(-13px) rotate(18deg)}}
-.quickbar{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:10px;margin-top:23px;position:relative;z-index:1}
-.quicklink{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:#fff;font-weight:800;font-size:12px;padding:11px 17px;border-radius:999px;background:linear-gradient(110deg,rgba(89,217,255,.20),rgba(88,239,187,.16));border:1px solid rgba(255,255,255,.23);transition:transform .2s,background .2s}
-.quicklink:hover{transform:translateY(-3px);background:rgba(89,217,255,.30)}
-.live-pill{display:inline-flex;gap:8px;align-items:center;padding:10px 15px;border-radius:999px;background:rgba(30,220,180,.1);border:1px solid rgba(114,247,211,.25);color:#b3ffe8;font-size:12px;font-weight:800}
-.live-pill:before{content:"";width:8px;height:8px;border-radius:50%;background:#68f5c6;box-shadow:0 0 12px #68f5c6;animation:pulso 2s infinite}
-.section-heading{display:flex;align-items:center;gap:12px;margin:6px 2px 18px;color:#fff;font-size:17px;font-weight:900;letter-spacing:.2px}
-.section-heading:before{content:"✦";color:#7fe3ff}.section-heading:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,rgba(124,201,240,.40),transparent)}
-.topbar{background:rgba(9,27,44,.90);border-color:rgba(139,196,236,.22);box-shadow:0 15px 48px rgba(2,10,20,.4)}
-select{background:#0f2a45;border-color:rgba(139,196,236,.28)}
-button{background:var(--grad);color:#04202e;box-shadow:0 8px 25px rgba(55,204,217,.22)}
-.tag{background:rgba(139,196,236,.08);border-color:rgba(139,196,236,.22);color:#d9ecfb}
-.tag:hover{background:rgba(89,217,255,.18);border-color:#59d9ff}
-.tag.active{background:var(--grad);color:#04202e}
-.card{background:linear-gradient(155deg,rgba(16,42,70,.97),rgba(10,28,48,.98));border-color:rgba(139,196,236,.20);box-shadow:0 15px 40px rgba(2,10,20,.3);animation:cardPop .25s ease both}
-.card:before{background:var(--grad)}
-.card:after{content:"✦";position:absolute;top:4px;right:10px;font-size:11px;line-height:1;color:rgba(170,230,250,.30);pointer-events:none}
-.card:hover{transform:translateY(-6px);border-color:rgba(91,218,237,.5);box-shadow:0 20px 55px rgba(30,130,180,.25)}
-@keyframes cardPop{from{opacity:0}to{opacity:1}}
-.infoItem{background:rgba(123,175,226,.07);border-color:rgba(145,190,230,.12)}
-.loteriaNome{color:#73f3c7}.horarioDestaque{color:#7bdeff}
-th{background:rgba(128,173,217,.10);color:#b7c9e0}
-td{background:rgba(5,16,30,.30)}tbody tr:nth-child(even) td{background:rgba(132,178,223,.04)}
-tbody tr:first-child td{background:rgba(255,213,114,.12)}
-.milhar{color:#fff;letter-spacing:2px;text-shadow:0 0 18px rgba(120,200,255,.14)}
-footer a{color:#7fe3ff;text-decoration:none}footer a:hover{text-decoration:underline}
-@media(max-width:700px){.hero{padding:39px 13px 29px}.hero-spark.one{left:2%;top:18%}.hero-spark.two{right:3%}.quickbar{gap:8px}.quicklink,.live-pill{font-size:11px;padding:9px 12px}.section-heading{font-size:15px}}
-@media(prefers-reduced-motion:reduce){.hero:after,.brand-kicker:before,.hero-spark,.live-pill:before{animation:none!important}}
-
-
-/* Layout organizado: topo compacto, card enxuto, agrupamento por dia */
-#loteriaSelect{display:none!important}
-.section-heading{display:none}
-.hero{padding:22px 16px 20px;margin-bottom:12px}
-.hero h1{font-size:clamp(26px,4.2vw,42px)}
-.hero p{margin-top:8px;padding:5px 14px;font-size:13px}
-.quickbar{margin-top:10px}
-.topbar{padding:12px 14px}
-.filtrosLinha{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px}
-.datas{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
-.datas::-webkit-scrollbar{display:none}
-.datas .tag{white-space:nowrap;flex:0 0 auto}
-.btnAtualizar{padding:8px 16px;font-size:13px;border-radius:999px;white-space:nowrap;width:auto}
-.status{margin-top:8px}
-.diaTitulo{grid-column:1/-1;display:flex;align-items:center;gap:12px;margin:12px 2px 0;font-size:13px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:#7fe3ff}
+.grid{margin-top:14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px;align-items:start}
+.diaTitulo{grid-column:1/-1;display:flex;align-items:center;gap:12px;margin:10px 2px 0;color:#7fe3ff;font-size:13px;font-weight:900;letter-spacing:1px;text-transform:uppercase}
 .diaTitulo::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(124,201,240,.4),transparent)}
-.diaTitulo:first-child{margin-top:2px}
-.cardTop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:2px 0 12px}
-.cardTop .loteriaNome{display:block;font-size:17px;font-weight:900;letter-spacing:.3px}
-.cardData{display:block;margin-top:2px;color:var(--muted);font-size:12px;font-weight:700}
-.cardTop .horarioDestaque{font-size:24px;font-weight:900;line-height:1}
-.semHora{color:var(--muted)!important;font-weight:700}
-th,td{padding:9px 12px}
-.cardRodape{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:12px;color:var(--muted);font-size:11.5px}
-.share{width:auto;padding:7px 12px;font-size:12px;font-weight:800;border-radius:999px;background:rgba(88,239,187,.12);color:#7bf3cc;border:1px solid rgba(88,239,187,.3);box-shadow:none}
-.share:hover{background:rgba(88,239,187,.22);filter:none}
+.diaTitulo:first-child{margin-top:0}
+
+.card{display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);border-radius:18px;
+  background:linear-gradient(180deg,var(--panel2),var(--panel));box-shadow:0 12px 30px rgba(2,10,20,.35);
+  animation:entra .25s ease both;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-3px);border-color:rgba(89,217,255,.45)}
+@keyframes entra{from{opacity:0}to{opacity:1}}
+.cardTop{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 14px;background:rgba(255,255,255,.035);border-bottom:1px solid var(--line)}
+.loteriaNome{display:block;color:var(--green);font-size:15px;font-weight:900;letter-spacing:.3px}
+.cardData{display:block;margin-top:2px;color:var(--muted);font-size:11.5px;font-weight:700}
+.horarioDestaque{flex:0 0 auto;padding:6px 13px;border-radius:999px;background:var(--grad);color:#04202e;font-size:15px;font-weight:900}
+.semHora{background:rgba(255,255,255,.08);color:var(--muted);font-weight:700}
+
+.premios{padding:6px 8px}
+.premio{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:8px;padding:8px;border-radius:12px}
+.premio+.premio{border-top:1px solid rgba(255,255,255,.05)}
+.pos{color:var(--muted);font-size:13px;font-weight:900}
+.milhar{font-size:22px;font-weight:900;letter-spacing:2px;font-variant-numeric:tabular-nums}
+.bicho{color:#c3d3e6;font-size:13px;font-weight:700;text-align:right}
+.premio.primeiro{background:linear-gradient(90deg,rgba(255,209,107,.15),rgba(255,209,107,.02))}
+.premio.primeiro .pos,.premio.primeiro .milhar{color:var(--gold)}
+.premio.primeiro .milhar{font-size:30px}
+
+.cardRodape{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding:10px 14px;border-top:1px solid var(--line);color:var(--muted);font-size:11.5px}
+.share{padding:7px 13px;border-radius:999px;border:1px solid rgba(88,239,187,.3);background:rgba(88,239,187,.12);color:#7bf3cc;font:inherit;font-size:12px;font-weight:800;cursor:pointer;transition:background .2s}
+.share:hover{background:rgba(88,239,187,.24)}
+
+.empty{grid-column:1/-1;padding:46px 16px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:18px}
+footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px}
+
 @media(max-width:700px){
-  .topbar{position:static}
-  .filtrosLinha{gap:8px}
-  .btnAtualizar{padding:8px 12px}
-  .share{width:auto}
+  .container{padding-top:10px}
+  .brandbar{padding-bottom:10px}
+  .brand p{font-size:12px}
+  .quicklink{padding:8px 12px;font-size:12px}
+  .filtros{position:static}
+  .rotulo{display:none}
+  .milhar{font-size:21px}
+  .premio.primeiro .milhar{font-size:28px}
 }
+@media(prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important}}
 </style>
 </head>
 
 <body>
 <div class="container">
 
-  <section class="hero">
-    <div class="brand-kicker">Central Kelly • Resultados</div>
-    <span class="hero-spark one" aria-hidden="true">✦</span><span class="hero-spark two" aria-hidden="true">✧</span>
-    <h1>Resultados <span>Kelly Menezes JB</span></h1>
-    <p>✦ Chama no milhar! ✦</p>
-    <div class="quickbar"><span class="live-pill">Painel de resultados</span><a class="quicklink" href="https://kellymenezes.app/" target="_blank" rel="noopener noreferrer">✦ Central Kelly ↗</a></div>
-  </section>
-
-  <section class="topbar">
-    <select id="loteriaSelect" hidden><option value="todas">Todas as loterias</option></select>
-    <div class="tags" id="tags"></div>
-    <div class="filtrosLinha">
-      <div class="datas" id="datas">
-        <div class="tag active" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" onclick="filtrarData('todos', this)">Todas as datas</div>
-        <div class="tag" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" onclick="filtrarData('hoje', this)">Hoje</div>
-        <div class="tag" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" onclick="filtrarData('ontem', this)">Ontem</div>
-      </div>
-      <button class="btnAtualizar" onclick="aplicarFiltro()">Atualizar</button>
+  <header class="brandbar">
+    <div class="brand">
+      <h1>Resultados <span>Kelly Menezes JB</span></h1>
+      <p>✦ Chama no milhar! ✦</p>
     </div>
-    <div class="status" id="status">Carregando resultados...</div>
+    <a class="quicklink" href="https://kellymenezes.app/" target="_blank" rel="noopener noreferrer">Central Kelly ↗</a>
+  </header>
+
+  <section class="filtros">
+    <select id="loteriaSelect" hidden><option value="todas">Todas as loterias</option></select>
+    <div class="linha"><span class="rotulo">Loteria</span><div class="tags" id="tags"></div></div>
+    <div class="linha"><span class="rotulo">Data</span>
+      <div class="datas" id="datas"><div class="tag active" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" onclick="filtrarData('todos', this)">Todas</div><div class="tag" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" onclick="filtrarData('hoje', this)">Hoje</div><div class="tag" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" onclick="filtrarData('ontem', this)">Ontem</div></div>
+    </div>
   </section>
 
-  <div class="section-heading">Confira os resultados</div>
+  <div class="statusLinha">
+    <div class="status" id="status">Carregando resultados...</div>
+    <button class="btnAtualizar" onclick="aplicarFiltro()">Atualizar</button>
+  </div>
+
   <main class="grid" id="gridResultados"></main>
 
   <footer>© Kelly Menezes JB</footer>
@@ -440,20 +240,15 @@ function renderizar(lista){
           </div>
           <span class="horarioDestaque ${hora ? "" : "semHora"}">${hora ? escapeHtml(hora) : "—"}</span>
         </div>
-        <table>
-          <thead>
-            <tr><th>Prêmio</th><th>Milhar</th><th>Bicho</th></tr>
-          </thead>
-          <tbody>
-            ${lerPremios(item).map(p => `
-              <tr>
-                <td>${escapeHtml(p.posicao || "")}</td>
-                <td class="milhar">${escapeHtml(p.milhar || "")}</td>
-                <td>${escapeHtml(p.bicho || "")}</td>
-              </tr>
-            `).join("")}
-          </tbody>
-        </table>
+        <div class="premios">
+          ${lerPremios(item).map((p, i) => `
+            <div class="premio ${i === 0 ? "primeiro" : ""}">
+              <span class="pos">${escapeHtml(p.posicao || "")}</span>
+              <span class="milhar">${escapeHtml(p.milhar || "")}</span>
+              <span class="bicho">${escapeHtml(p.bicho || "")}</span>
+            </div>
+          `).join("")}
+        </div>
         <div class="cardRodape">
           <span>${atualizado}</span>
           <button class="share" data-id="${escapeHtml(item.id || "")}" onclick="compartilhar(this.dataset.id)">Enviar no WhatsApp</button>
