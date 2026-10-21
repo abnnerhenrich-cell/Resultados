@@ -203,6 +203,53 @@ footer{padding:12px 0 20px;color:#8d9fb9}
 @media(max-width:700px){.container{width:calc(100% - 22px);padding-top:12px}.hero{padding:34px 16px 30px;margin-bottom:14px;border-radius:21px}.hero h1{letter-spacing:-1px}.topbar{top:7px;padding:13px;border-radius:17px;margin-bottom:16px}.controls{grid-template-columns:1fr;gap:9px}button{width:100%}.tags{margin-top:13px}.grid{gap:14px}.card{padding:14px;border-radius:17px}.infoItem{padding:10px}.milhar{font-size:23px}th,td{padding:10px 9px}}
 @media(max-width:370px){.milhar{font-size:20px;letter-spacing:.8px}.info{gap:7px}.infoValue{font-size:12px}th,td{padding:9px 7px}}
 
+
+/* Kelly Central inspired visual layer — decorative only, scripts untouched */
+:root{--bg:#080617;--card:#16102b;--card2:#22143d;--blue:#e49aff;--green:#7df4df;--gold:#ffd879;--muted:#c1b5d6;--line:rgba(232,184,255,.22);--grad:linear-gradient(110deg,#ff7dc8,#bd87ff 52%,#70e9e4)}
+body{background:radial-gradient(ellipse 800px 540px at 10% 0%,rgba(170,55,211,.27),transparent 75%),radial-gradient(ellipse 800px 500px at 95% 25%,rgba(40,190,212,.13),transparent 72%),linear-gradient(155deg,#0b071b,#100c27 52%,#070713) fixed}
+.container{position:relative;isolation:isolate}
+.container:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.2) .8px,transparent .8px);background-size:33px 33px;mask-image:linear-gradient(to bottom,black,transparent 65%);opacity:.22}
+.hero{isolation:isolate;background:linear-gradient(120deg,rgba(58,24,92,.97),rgba(24,15,56,.97) 60%,rgba(10,44,65,.9));border:1px solid rgba(233,164,255,.35);padding:55px 22px 37px;box-shadow:0 25px 80px rgba(93,25,145,.26),inset 0 1px rgba(255,255,255,.13)}
+.hero:before{width:75%;height:4px;background:var(--grad);box-shadow:0 0 26px rgba(255,110,209,.65)}
+.hero:after{width:330px;height:330px;top:-175px;right:-75px;border:32px solid rgba(237,135,255,.075);box-shadow:0 0 0 32px rgba(255,255,255,.018);animation:orb 13s ease-in-out infinite alternate}
+@keyframes orb{to{transform:translate(-40px,45px) rotate(20deg)}}
+.hero h1{position:relative;z-index:1;font-size:clamp(32px,5vw,62px);line-height:1.07;text-shadow:0 5px 28px rgba(0,0,0,.2)}
+.hero h1 span{background:linear-gradient(95deg,#ff95d8,#fff 50%,#8ff9ee);background-clip:text;-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 4px 16px rgba(249,131,225,.24))}
+.hero p{position:relative;z-index:1;color:#ffe9fb;border:1px solid rgba(250,174,248,.35);background:rgba(251,148,240,.12);box-shadow:0 0 20px rgba(219,99,237,.09)}
+.brand-kicker{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);padding:7px 13px;border-radius:999px;color:#ffe2f8;font-size:11px;font-weight:900;letter-spacing:2px;margin-bottom:17px;text-transform:uppercase}
+.brand-kicker:before{content:"✦";color:#ffd879;font-size:16px;animation:twinkle 2.5s ease-in-out infinite}
+@keyframes twinkle{50%{opacity:.35;transform:scale(.75) rotate(25deg)}}
+.hero-spark{position:absolute;pointer-events:none;font-size:29px;color:#ffe2a0;text-shadow:0 0 25px rgba(255,220,126,.7);animation:floaty 5s ease-in-out infinite}
+.hero-spark.one{top:24%;left:7%}.hero-spark.two{right:9%;bottom:20%;font-size:20px;animation-delay:-2s}
+@keyframes floaty{50%{transform:translateY(-13px) rotate(18deg)}}
+.quickbar{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:10px;margin-top:23px;position:relative;z-index:1}
+.quicklink{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:#fff;font-weight:800;font-size:12px;padding:11px 17px;border-radius:999px;background:linear-gradient(110deg,rgba(255,122,204,.25),rgba(160,111,255,.2));border:1px solid rgba(255,255,255,.23);transition:transform .2s,background .2s}
+.quicklink:hover{transform:translateY(-3px);background:rgba(255,122,204,.35)}
+.live-pill{display:inline-flex;gap:8px;align-items:center;padding:10px 15px;border-radius:999px;background:rgba(30,220,180,.1);border:1px solid rgba(114,247,211,.25);color:#b3ffe8;font-size:12px;font-weight:800}
+.live-pill:before{content:"";width:8px;height:8px;border-radius:50%;background:#68f5c6;box-shadow:0 0 12px #68f5c6;animation:pulso 2s infinite}
+.section-heading{display:flex;align-items:center;gap:12px;margin:6px 2px 18px;color:#fff;font-size:17px;font-weight:900;letter-spacing:.2px}
+.section-heading:before{content:"✦";color:#ff9bd7}.section-heading:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,rgba(238,150,252,.4),transparent)}
+.topbar{background:rgba(22,12,43,.88);border-color:rgba(237,166,255,.24);box-shadow:0 15px 48px rgba(11,5,30,.4)}
+select{background:#25163f;border-color:rgba(236,165,255,.3)}
+button{background:var(--grad);color:#210c32;box-shadow:0 8px 25px rgba(232,112,221,.24)}
+.tag{background:rgba(213,145,255,.09);border-color:rgba(221,165,255,.23);color:#f4defe}
+.tag:hover{background:rgba(234,136,249,.2);border-color:#dc9dff}
+.tag.active{background:var(--grad);color:#220c30}
+.card{background:linear-gradient(155deg,rgba(40,24,73,.97),rgba(20,17,45,.98));border-color:rgba(218,162,255,.2);box-shadow:0 15px 40px rgba(12,4,30,.3);animation:cardPop .5s ease both}
+.card:before{background:var(--grad)}
+.card:after{content:"✦";position:absolute;top:9px;right:14px;font-size:15px;color:rgba(255,202,246,.32);pointer-events:none}
+.card:hover{transform:translateY(-6px);border-color:rgba(248,163,255,.6);box-shadow:0 20px 55px rgba(127,47,171,.23)}
+@keyframes cardPop{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.infoItem{background:rgba(223,157,255,.07);border-color:rgba(233,169,255,.12)}
+.loteriaNome{color:#ffb3e5}.horarioDestaque{color:#aafaf0}
+th{background:rgba(201,137,255,.1);color:#e5c9f7}
+td{background:rgba(15,8,37,.25)}tbody tr:nth-child(even) td{background:rgba(201,137,255,.04)}
+tbody tr:first-child td{background:rgba(255,213,114,.12)}
+.milhar{color:#fff;letter-spacing:2px;text-shadow:0 0 18px rgba(223,166,255,.13)}
+footer a{color:#ffb4e5;text-decoration:none}footer a:hover{text-decoration:underline}
+@media(max-width:700px){.hero{padding:39px 13px 29px}.hero-spark.one{left:2%;top:18%}.hero-spark.two{right:3%}.quickbar{gap:8px}.quicklink,.live-pill{font-size:11px;padding:9px 12px}.section-heading{font-size:15px}}
+@media(prefers-reduced-motion:reduce){.hero:after,.brand-kicker:before,.hero-spark,.live-pill:before{animation:none!important}}
+
 </style>
 </head>
 
@@ -210,8 +257,11 @@ footer{padding:12px 0 20px;color:#8d9fb9}
 <div class="container">
 
   <section class="hero">
+    <div class="brand-kicker">Central Kelly • Resultados</div>
+    <span class="hero-spark one" aria-hidden="true">✦</span><span class="hero-spark two" aria-hidden="true">✧</span>
     <h1>Resultados <span>Kelly Menezes JB</span></h1>
-    <p>Chama no milhar!</p>
+    <p>✦ Chama no milhar! ✦</p>
+    <div class="quickbar"><span class="live-pill">Painel de resultados</span><a class="quicklink" href="https://kellymenezes.app/" target="_blank" rel="noopener noreferrer">✦ Central Kelly ↗</a></div>
   </section>
 
   <section class="topbar">
@@ -227,6 +277,7 @@ footer{padding:12px 0 20px;color:#8d9fb9}
     <div class="status" id="status">Carregando resultados...</div>
   </section>
 
+  <div class="section-heading">Confira os resultados</div>
   <main class="grid" id="gridResultados"></main>
 
   <footer>© Kelly Menezes JB</footer>
