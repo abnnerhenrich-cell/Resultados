@@ -120,7 +120,7 @@ footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px}
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getFirestore, collection, query, orderBy, limit, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import { getFirestore, collection, query, where, limit, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC6iyfXbCt-fHL5Wt5zNS5myKq-njJzbms",
@@ -307,20 +307,13 @@ function montarFiltros(){
     select.value = valorAtual;
   }
 
-  const principais = [
-    "todas",
-    "PT-SP",
-    "PT-RIO",
-    "LOOK LOTERIAS",
-    "BANDEIRANTES",
-    "LOTECE",
-    "MALUCA BAHIA",
-    "BOA SORTE GOIÁS"
-  ];
+  const fixas = ["PT-SP","PT-RIO","LOOK LOTERIAS","BANDEIRANTES","LOTECE","MALUCA BAHIA","BOA SORTE GOIÁS"];
+  const extras = loterias.filter(n => !fixas.some(f => normalizar(f) === normalizar(n)));
+  const principais = ["todas", ...fixas, ...extras];
 
   tags.innerHTML = principais.map(nome => `
-    <div class="tag ${normalizar(nome) === normalizar(select.value) ? "active" : ""}" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" onclick="filtrarRapido('${nome}', this)">
-      ${nome === "todas" ? "Todas" : nome}
+    <div class="tag ${normalizar(nome) === normalizar(select.value) ? "active" : ""}" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" data-nome="${escapeHtml(nome)}" onclick="filtrarRapido(this.dataset.nome, this)">
+      ${nome === "todas" ? "Todas" : escapeHtml(nome)}
     </div>
   `).join("");
 }
@@ -339,9 +332,14 @@ function erroAoCarregar(err){
   statusEl.textContent = "Erro ao carregar resultados.";
 }
 
-// Lê só os 150 mais recentes (evita ler o banco inteiro a cada visita).
-// Se nenhum documento tiver "dataOrdenacao", cai para a leitura simples.
-const recentes = query(collection(db, "resultados"), orderBy("dataOrdenacao", "desc"), limit(150));
+// Lê só os últimos 10 dias (pelo campo "data" dd/mm/aaaa, que todos os documentos têm).
+// Se não vier nada, cai para a leitura simples.
+function datasRecentes(n){
+  const base = Date.parse(isoHoje() + "T12:00:00Z");
+  return Array.from({ length: n }, (_, i) =>
+    new Date(base - i * 864e5).toISOString().slice(0,10).split("-").reverse().join("/"));
+}
+const recentes = query(collection(db, "resultados"), where("data", "in", datasRecentes(10)), limit(400));
 const simples = query(collection(db, "resultados"), limit(300));
 let cancelarSimples = null;
 
