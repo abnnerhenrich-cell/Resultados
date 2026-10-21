@@ -208,7 +208,7 @@ footer{padding:12px 0 20px;color:#8d9fb9}
 :root{--bg:#080617;--card:#16102b;--card2:#22143d;--blue:#e49aff;--green:#7df4df;--gold:#ffd879;--muted:#c1b5d6;--line:rgba(232,184,255,.22);--grad:linear-gradient(110deg,#ff7dc8,#bd87ff 52%,#70e9e4)}
 body{background:radial-gradient(ellipse 800px 540px at 10% 0%,rgba(170,55,211,.27),transparent 75%),radial-gradient(ellipse 800px 500px at 95% 25%,rgba(40,190,212,.13),transparent 72%),linear-gradient(155deg,#0b071b,#100c27 52%,#070713) fixed}
 .container{position:relative;isolation:isolate}
-.container:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.2) .8px,transparent .8px);background-size:33px 33px;mask-image:linear-gradient(to bottom,black,transparent 65%);opacity:.22}
+.container:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.2) .8px,transparent .8px);background-size:33px 33px;-webkit-mask-image:linear-gradient(to bottom,#000,transparent 65%);mask-image:linear-gradient(to bottom,#000,transparent 65%);opacity:.22}
 .hero{isolation:isolate;background:linear-gradient(120deg,rgba(58,24,92,.97),rgba(24,15,56,.97) 60%,rgba(10,44,65,.9));border:1px solid rgba(233,164,255,.35);padding:55px 22px 37px;box-shadow:0 25px 80px rgba(93,25,145,.26),inset 0 1px rgba(255,255,255,.13)}
 .hero:before{width:75%;height:4px;background:var(--grad);box-shadow:0 0 26px rgba(255,110,209,.65)}
 .hero:after{width:330px;height:330px;top:-175px;right:-75px;border:32px solid rgba(237,135,255,.075);box-shadow:0 0 0 32px rgba(255,255,255,.018);animation:orb 13s ease-in-out infinite alternate}
@@ -235,11 +235,11 @@ button{background:var(--grad);color:#210c32;box-shadow:0 8px 25px rgba(232,112,2
 .tag{background:rgba(213,145,255,.09);border-color:rgba(221,165,255,.23);color:#f4defe}
 .tag:hover{background:rgba(234,136,249,.2);border-color:#dc9dff}
 .tag.active{background:var(--grad);color:#220c30}
-.card{background:linear-gradient(155deg,rgba(40,24,73,.97),rgba(20,17,45,.98));border-color:rgba(218,162,255,.2);box-shadow:0 15px 40px rgba(12,4,30,.3);animation:cardPop .5s ease both}
+.card{background:linear-gradient(155deg,rgba(40,24,73,.97),rgba(20,17,45,.98));border-color:rgba(218,162,255,.2);box-shadow:0 15px 40px rgba(12,4,30,.3);animation:cardPop .25s ease both}
 .card:before{background:var(--grad)}
 .card:after{content:"✦";position:absolute;top:9px;right:14px;font-size:15px;color:rgba(255,202,246,.32);pointer-events:none}
 .card:hover{transform:translateY(-6px);border-color:rgba(248,163,255,.6);box-shadow:0 20px 55px rgba(127,47,171,.23)}
-@keyframes cardPop{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cardPop{from{opacity:0}to{opacity:1}}
 .infoItem{background:rgba(223,157,255,.07);border-color:rgba(233,169,255,.12)}
 .loteriaNome{color:#ffb3e5}.horarioDestaque{color:#aafaf0}
 th{background:rgba(201,137,255,.1);color:#e5c9f7}
