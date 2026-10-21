@@ -261,7 +261,7 @@ footer{
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getFirestore, collection, query, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import { getFirestore, collection, query, orderBy, limit, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC6iyfXbCt-fHL5Wt5zNS5myKq-njJzbms",
@@ -298,17 +298,28 @@ function normalizar(texto){
     .trim();
 }
 
+function paraNumero(v){
+  if(!v) return 0;
+  if(typeof v.toMillis === "function") return v.toMillis(); // Timestamp do Firestore
+  const n = Number(v);
+  return Number.isNaN(n) ? 0 : n;
+}
+
 function ordem(item){
-  return Number(item.dataOrdenacao || item.atualizado || item.createdAt || 0);
+  return paraNumero(item.dataOrdenacao) || paraNumero(item.atualizado) ||
+         paraNumero(item.updatedAt) || paraNumero(item.createdAt);
 }
 
 function limparDocumentosInvalidos(lista){
+  lista = lista.map(item => ({ ...item, loteria: item.loteria || item.titulo || "" }));
+
   return lista.filter(item => {
     const titulo = String(item.titulo || "").toLowerCase();
     const loteria = String(item.loteria || "").toLowerCase();
 
     if(!item.loteria) return false;
-    if(!item.premios) return false;
+    if(!item.premios || (Array.isArray(item.premios) && !item.premios.length)) return false;
+    if(Array.isArray(item.premios) && item.premios.some(p => !/^\d{4}$/.test(String((p && p.milhar) || "")))) return false;
 
     const lixo = ["function","window","document","print","script","__","const ","var "];
 
@@ -440,8 +451,8 @@ function montarFiltros(){
     "BOA SORTE GOIÁS"
   ];
 
-  tags.innerHTML = principais.map((nome, i) => `
-    <div class="tag ${i === 0 ? "active" : ""}" onclick="filtrarRapido('${nome}', this)">
+  tags.innerHTML = principais.map(nome => `
+    <div class="tag ${normalizar(nome) === normalizar(select.value) ? "active" : ""}" onclick="filtrarRapido('${nome}', this)">
       ${nome === "todas" ? "Todas" : nome}
     </div>
   `).join("");
@@ -449,26 +460,32 @@ function montarFiltros(){
 
 select.addEventListener("change", aplicarFiltro);
 
-const q = query(collection(db, "resultados"));
-
-onSnapshot(q, snap => {
-  todosResultados = limparDocumentosInvalidos(
-    snap.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }))
-  );
-
+function aoReceber(snap){
+  todosResultados = limparDocumentosInvalidos(snap.docs.map(d => ({ id: d.id, ...d.data() })));
   montarFiltros();
-
-  statusEl.innerHTML =
-    "Última atualização da tela: " + new Date().toLocaleString("pt-BR");
-
+  statusEl.textContent = "Última atualização da tela: " + new Date().toLocaleString("pt-BR");
   aplicarFiltro();
-}, err => {
+}
+
+function erroAoCarregar(err){
   console.error(err);
   statusEl.textContent = "Erro ao carregar resultados.";
-});
+}
+
+// Lê só os 150 mais recentes (evita ler o banco inteiro a cada visita).
+// Se nenhum documento tiver "dataOrdenacao", cai para a leitura simples.
+const recentes = query(collection(db, "resultados"), orderBy("dataOrdenacao", "desc"), limit(150));
+const simples = query(collection(db, "resultados"), limit(300));
+let usouSimples = false;
+
+onSnapshot(recentes, snap => {
+  if(snap.empty && !usouSimples){
+    usouSimples = true;
+    onSnapshot(simples, aoReceber, erroAoCarregar);
+    return;
+  }
+  aoReceber(snap);
+}, erroAoCarregar);
 </script>
 
 </body>

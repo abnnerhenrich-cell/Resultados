@@ -1,141 +1,100 @@
 const { onSchedule } = require("firebase-functions/v2/scheduler");
 const { onRequest } = require("firebase-functions/v2/https");
+const { defineSecret } = require("firebase-functions/params");
 const admin = require("firebase-admin");
-const cheerio = require("cheerio");
+const { parseResults, premiosValidos, nomeLoteria, TZ } = require("./parser");
 
 admin.initializeApp();
 const db = admin.firestore();
+const ADMIN_TOKEN = defineSecret("ADMIN_TOKEN");
 
 const SOURCE_URL = "https://www.ojogodobicho.com/resultados.htm";
+const DIAS_GUARDAR = 30;
 
-/*
-  IMPORTANTE:
-  Este coletor é um modelo genérico.
-  Como cada site tem um HTML diferente, talvez você precise ajustar os seletores dentro de parseResults().
-  Use somente se a coleta for permitida pelos termos do site.
-*/
-
-function guessBichoFromMilhar(milhar){
-  const bichos = {
-    1:"Avestruz",2:"Águia",3:"Burro",4:"Borboleta",5:"Cachorro",
-    6:"Cabra",7:"Carneiro",8:"Camelo",9:"Cobra",10:"Coelho",
-    11:"Cavalo",12:"Elefante",13:"Galo",14:"Gato",15:"Jacaré",
-    16:"Leão",17:"Macaco",18:"Porco",19:"Pavão",20:"Peru",
-    21:"Touro",22:"Tigre",23:"Urso",24:"Veado",25:"Vaca"
-  };
-  const n = String(milhar || "").replace(/\D/g, "");
-  if(n.length < 2) return "";
-  const dezena = Number(n.slice(-2));
-  const grupo = dezena === 0 ? 25 : Math.ceil(dezena / 4);
-  return bichos[grupo] || "";
+async function baixar(){
+  let erro;
+  for(let i = 0; i < 3; i++){
+    try{
+      const res = await fetch(SOURCE_URL, {
+        headers: { "User-Agent": "Mozilla/5.0 (compatible; ResultadoBot/1.0)", "Accept": "text/html" },
+        signal: AbortSignal.timeout(20000)
+      });
+      if(!res.ok) throw new Error(`Fonte respondeu ${res.status}`);
+      return await res.text();
+    }catch(e){
+      erro = e;
+      await new Promise(r => setTimeout(r, 2000 * (i + 1)));
+    }
+  }
+  throw erro;
 }
 
-function parseResults(html){
-  const $ = cheerio.load(html);
-  const text = $("body").text().replace(/\s+/g, " ").trim();
+const idDe = c => `${c.loteria}-${c.dataISO}-${c.hora.replace(":", "")}`
+  .toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
-  // Tenta encontrar blocos por títulos comuns.
-  const cards = [];
+// dry=true: só mostra o que seria salvo, sem gravar nada.
+async function coletar(dry){
+  const { cards, rejeitados } = parseResults(await baixar());
+  if(dry) return { ok: true, dry: true, aceitos: cards, rejeitados };
 
-  $("table").each((idx, table) => {
-    const premios = [];
-    $(table).find("tr").each((i, tr) => {
-      const cells = $(tr).find("td").map((_, td) => $(td).text().trim()).get();
-      const joined = cells.join(" ");
-      const milhar = (joined.match(/\b\d{4}\b/) || [])[0];
-
-      if(milhar){
-        premios.push({
-          posicao: cells[0] || `${premios.length + 1}º`,
-          milhar,
-          bicho: guessBichoFromMilhar(milhar)
-        });
-      }
-    });
-
-    if(premios.length){
-      const previousTitle = $(table).prevAll("h1,h2,h3,h4").first().text().trim();
-      cards.push({
-        titulo: previousTitle || `Resultado ${idx + 1}`,
-        data: new Date().toLocaleDateString("pt-BR"),
-        fonte: "ojogodobicho.com",
-        premios
-      });
-    }
-  });
-
-  // Fallback: pega qualquer sequência de milhares no texto.
-  if(!cards.length){
-    const milhares = [...new Set((text.match(/\b\d{4}\b/g) || []))].slice(0, 7);
-    if(milhares.length){
-      cards.push({
-        titulo: "Resultado coletado",
-        data: new Date().toLocaleDateString("pt-BR"),
-        fonte: "ojogodobicho.com",
-        premios: milhares.map((m, i) => ({
-          posicao: `${i + 1}º`,
-          milhar: m,
-          bicho: guessBichoFromMilhar(m)
-        }))
-      });
-    }
-  }
-
-  return cards;
-}
-
-async function scrapeAndSave(){
-  const res = await fetch(SOURCE_URL, {
-    headers: {
-      "User-Agent": "Mozilla/5.0 ResultadoBot/1.0",
-      "Accept": "text/html"
-    }
-  });
-
-  if(!res.ok){
-    throw new Error(`Falha ao acessar fonte: ${res.status}`);
-  }
-
-  const html = await res.text();
-  const cards = parseResults(html);
-
-  if(!cards.length){
-    throw new Error("Nenhum resultado foi encontrado. Ajuste os seletores do parseResults().");
-  }
-
-  const batch = db.batch();
+  const agora = new Date().toLocaleTimeString("pt-BR", { timeZone: TZ, hour: "2-digit", minute: "2-digit" });
+  let salvos = 0, jaExistiam = 0;
 
   for(const card of cards){
-    const idBase = `${card.titulo}-${card.data}`.toLowerCase()
-      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, "");
-
-    const ref = db.collection("resultados").doc(idBase || String(Date.now()));
-    batch.set(ref, {
-      ...card,
-      sourceUrl: SOURCE_URL,
-      createdAt: admin.firestore.FieldValue.serverTimestamp(),
-      updatedAt: admin.firestore.FieldValue.serverTimestamp()
-    }, { merge: true });
+    try{
+      // create() NUNCA sobrescreve: resultado já publicado não é alterado por leitura errada depois.
+      await db.collection("resultados").doc(idDe(card)).create({
+        ...card, fonte: "ojogodobicho.com", sourceUrl: SOURCE_URL, atualizadoFonte: agora,
+        createdAt: admin.firestore.FieldValue.serverTimestamp()
+      });
+      salvos++;
+    }catch(e){
+      if(e.code === 6 || /ALREADY_EXISTS/.test(e.message)) jaExistiam++; else throw e;
+    }
   }
-
-  await batch.commit();
-  return { ok:true, total: cards.length };
+  console.log(`salvos=${salvos} jaExistiam=${jaExistiam} rejeitados=${rejeitados.length}`, JSON.stringify(rejeitados));
+  return { ok: true, salvos, jaExistiam, rejeitados };
 }
 
-// Roda automático a cada 5 minutos.
-// Para usar scheduler, normalmente o projeto precisa estar no plano Blaze.
-exports.coletarResultadosAutomatico = onSchedule("every 5 minutes", async () => {
-  await scrapeAndSave();
+// Só das 8h às 23h55 (horário de Brasília), a cada 5 minutos.
+exports.coletarResultadosAutomatico = onSchedule(
+  { schedule: "*/5 8-23 * * *", timeZone: TZ, retryCount: 0, timeoutSeconds: 90, maxInstances: 1 },
+  async () => { await coletar(false); }
+);
+
+// Apaga resultados com mais de 30 dias (mantém o banco pequeno e barato).
+exports.limparAntigos = onSchedule({ schedule: "0 3 * * *", timeZone: TZ, retryCount: 0 }, async () => {
+  const corte = Date.now() - DIAS_GUARDAR * 864e5;
+  const snap = await db.collection("resultados").where("dataOrdenacao", "<", corte).limit(400).get();
+  const batch = db.batch();
+  snap.docs.forEach(d => batch.delete(d.ref));
+  await batch.commit();
 });
 
-// URL manual para testar no navegador depois do deploy.
-exports.coletarResultadosAgora = onRequest(async (req, res) => {
-  try{
-    const result = await scrapeAndSave();
-    res.json(result);
-  }catch(err){
-    res.status(500).json({ ok:false, error: err.message });
+function protegido(handler){
+  return onRequest({ secrets: [ADMIN_TOKEN] }, async (req, res) => {
+    if(req.query.token !== ADMIN_TOKEN.value()) return res.status(403).json({ ok: false, error: "token inválido" });
+    try{ res.json(await handler(req)); }
+    catch(err){ res.status(500).json({ ok: false, error: err.message }); }
+  });
+}
+
+// Teste: .../coletarResultadosAgora?token=SEU_TOKEN&dry=1  (mostra aceitos e recusados sem gravar)
+exports.coletarResultadosAgora = protegido(req => coletar(req.query.dry === "1"));
+
+// Limpa resultados ERRADOS já gravados. Por padrão só lista; para apagar de verdade use &apagar=1
+exports.limparInvalidos = protegido(async req => {
+  const snap = await db.collection("resultados").get();
+  const ruins = snap.docs.filter(d => {
+    const x = d.data();
+    return !(nomeLoteria(x.loteria) && premiosValidos(x.premios) && typeof x.dataOrdenacao === "number");
+  });
+  if(req.query.apagar === "1"){
+    for(let i = 0; i < ruins.length; i += 400){
+      const batch = db.batch();
+      ruins.slice(i, i + 400).forEach(d => batch.delete(d.ref));
+      await batch.commit();
+    }
   }
+  return { ok: true, total: snap.size, invalidos: ruins.length, apagados: req.query.apagar === "1", ids: ruins.map(d => d.id).slice(0, 100) };
 });
