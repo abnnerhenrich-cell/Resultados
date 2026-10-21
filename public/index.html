@@ -7,111 +7,57 @@
 <title>Resultados Kelly Menezes JB</title>
 
 <style>
-:root{--bg:#07202d;--panel:#0c2238;--panel2:#11294a;--line:rgba(139,196,236,.18);--text:#eef6ff;--muted:#9db2c9;--blue:#59d9ff;--green:#58efbb;--gold:#ffd16b;--grad:linear-gradient(110deg,#66dfff,#63f0bc)}
-*{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
-body{min-height:100vh;color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  background:radial-gradient(ellipse 900px 480px at 8% -8%,rgba(30,140,190,.26),transparent 70%),
-             radial-gradient(ellipse 700px 420px at 100% 10%,rgba(40,200,170,.10),transparent 70%),
-             linear-gradient(160deg,#08212f,#081b2c 55%,#06121f) fixed}
-.container{width:min(1240px,100% - 24px);margin:auto;padding:14px 0 40px}
-
-.brandbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 2px 14px}
-.brand h1{font-size:clamp(21px,3.6vw,32px);font-weight:900;letter-spacing:-.6px;line-height:1.1}
-.brand h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.brand p{margin-top:4px;color:var(--muted);font-size:13px;font-weight:700}
-.quicklink{flex:0 0 auto;padding:9px 15px;border-radius:999px;border:1px solid rgba(89,217,255,.35);background:rgba(89,217,255,.10);color:#bdf1ff;font-size:13px;font-weight:800;text-decoration:none;transition:background .2s}
-.quicklink:hover{background:rgba(89,217,255,.22)}
-
-.filtros{position:sticky;top:8px;z-index:10;display:grid;gap:9px;padding:11px 12px;border:1px solid var(--line);border-radius:18px;
-  background:rgba(7,25,41,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
-.linha{display:flex;align-items:center;gap:10px;min-width:0}
-.rotulo{flex:0 0 52px;color:var(--muted);font-size:10.5px;font-weight:900;letter-spacing:.8px;text-transform:uppercase}
-.tags,.datas{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1}
-.tags::-webkit-scrollbar,.datas::-webkit-scrollbar{display:none}
-.tag{flex:0 0 auto;white-space:nowrap;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(139,196,236,.07);color:#d9ecfb;font-size:12.5px;font-weight:800;cursor:pointer;user-select:none;transition:all .18s}
-.tag:hover{background:rgba(89,217,255,.16);border-color:rgba(89,217,255,.5)}
-.tag.active{background:var(--grad);border-color:transparent;color:#04202e}
-.tag:focus-visible,button:focus-visible,.quicklink:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-
-.statusLinha{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 4px 0}
-.status{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}
-.status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulso 2s infinite}
-@keyframes pulso{70%{box-shadow:0 0 0 7px rgba(88,239,187,0)}0%{box-shadow:0 0 0 0 rgba(88,239,187,.6)}}
-.btnAtualizar{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:#d9ecfb;font:inherit;font-size:12px;font-weight:800;cursor:pointer}
-.btnAtualizar:hover{background:rgba(89,217,255,.16)}
-
-.grid{margin-top:14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px;align-items:start}
-.diaTitulo{grid-column:1/-1;display:flex;align-items:center;gap:12px;margin:10px 2px 0;color:#7fe3ff;font-size:13px;font-weight:900;letter-spacing:1px;text-transform:uppercase}
-.diaTitulo::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(124,201,240,.4),transparent)}
-.diaTitulo:first-child{margin-top:0}
-
-.card{display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);border-radius:18px;
-  background:linear-gradient(180deg,var(--panel2),var(--panel));box-shadow:0 12px 30px rgba(2,10,20,.35);
-  animation:entra .25s ease both;transition:transform .2s,border-color .2s}
-.card:hover{transform:translateY(-3px);border-color:rgba(89,217,255,.45)}
-@keyframes entra{from{opacity:0}to{opacity:1}}
-.cardTop{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 14px;background:rgba(255,255,255,.035);border-bottom:1px solid var(--line)}
-.loteriaNome{display:block;color:var(--green);font-size:15px;font-weight:900;letter-spacing:.3px}
-.cardData{display:block;margin-top:2px;color:var(--muted);font-size:11.5px;font-weight:700}
-.horarioDestaque{flex:0 0 auto;padding:6px 13px;border-radius:999px;background:var(--grad);color:#04202e;font-size:15px;font-weight:900}
-.semHora{background:rgba(255,255,255,.08);color:var(--muted);font-weight:700}
-
-.premios{padding:6px 8px}
-.premio{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:8px;padding:8px;border-radius:12px}
-.premio+.premio{border-top:1px solid rgba(255,255,255,.05)}
-.pos{color:var(--muted);font-size:13px;font-weight:900}
-.milhar{font-size:22px;font-weight:900;letter-spacing:2px;font-variant-numeric:tabular-nums}
-.bicho{color:#c3d3e6;font-size:13px;font-weight:700;text-align:right}
-.premio.primeiro{background:linear-gradient(90deg,rgba(255,209,107,.15),rgba(255,209,107,.02))}
-.premio.primeiro .pos,.premio.primeiro .milhar{color:var(--gold)}
-.premio.primeiro .milhar{font-size:30px}
-
-.cardRodape{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding:10px 14px;border-top:1px solid var(--line);color:var(--muted);font-size:11.5px}
-.share{padding:7px 13px;border-radius:999px;border:1px solid rgba(88,239,187,.3);background:rgba(88,239,187,.12);color:#7bf3cc;font:inherit;font-size:12px;font-weight:800;cursor:pointer;transition:background .2s}
-.share:hover{background:rgba(88,239,187,.24)}
-
-.empty{grid-column:1/-1;padding:46px 16px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:18px}
-footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px}
-
-@media(max-width:700px){
-  .container{padding-top:10px}
-  .brandbar{padding-bottom:10px}
-  .brand p{font-size:12px}
-  .quicklink{padding:8px 12px;font-size:12px}
-  .filtros{position:static}
-  .rotulo{display:none}
-  .milhar{font-size:21px}
-  .premio.primeiro .milhar{font-size:28px}
-}
-@media(prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important}}
+:root{color-scheme:dark;--bg:#070c19;--panel:#101b30;--panel2:#14223a;--line:#283a55;--text:#f5f8ff;--muted:#a8b8d1;--cyan:#55dcff;--mint:#62efbd;--gold:#ffd47a;--grad:linear-gradient(115deg,#63dcff,#66edbc)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(ellipse 850px 430px at 90% -10%,#163f55 0%,transparent 70%),radial-gradient(ellipse 800px 650px at -20% 45%,#10233d 0%,transparent 70%),var(--bg);font:15px/1.5 system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:var(--text)}
+.container{width:min(1380px,calc(100% - 48px));margin:0 auto;padding:26px 0 42px}
+.hero{position:relative;display:flex;justify-content:space-between;align-items:center;gap:25px;overflow:hidden;padding:32px 38px;border:1px solid #2a5065;border-radius:26px;background:linear-gradient(120deg,#122a45,#102037 58%,#133c45);box-shadow:0 18px 55px #0005}
+.hero:after{content:"";position:absolute;width:370px;height:370px;right:-100px;top:-210px;border:65px solid #73e8d60d;border-radius:50%;pointer-events:none}
+.brand-kicker{display:block;margin-bottom:8px;color:#8ce6e3;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:2.5px}
+.hero h1{margin:0;font-size:clamp(28px,3.5vw,49px);line-height:1.08;letter-spacing:-1.7px;font-weight:900}.hero h1 span{display:block;background:var(--grad);color:transparent;background-clip:text}.hero p{margin:12px 0 0;color:#c3d6e7;font-size:14px;font-weight:650}
+.quickbar{display:flex;flex-direction:column;align-items:flex-end;gap:12px;position:relative;z-index:1}.live-pill{border:1px solid #33735e;background:#123f39;color:#94f5cb;padding:9px 14px;border-radius:50px;font-size:12px;font-weight:800;white-space:nowrap}.live-pill:before{content:"";display:inline-block;width:8px;height:8px;margin-right:9px;border-radius:50%;background:var(--mint);box-shadow:0 0 12px var(--mint)}.quicklink{color:#fff;text-decoration:none;background:#ffffff13;border:1px solid #ffffff30;border-radius:12px;padding:10px 15px;font-size:13px;font-weight:750;white-space:nowrap}.quicklink:hover{background:#ffffff24}
+.topbar{position:sticky;top:10px;z-index:5;margin:20px 0 24px;padding:20px 22px;border:1px solid var(--line);border-radius:22px;background:#0e1929f2;backdrop-filter:blur(16px);box-shadow:0 14px 40px #0007}
+.filter-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.filter-heading h2{margin:0;font-size:15px;letter-spacing:.2px}.filter-heading small{color:var(--muted);font-size:12px}.filter-label{font-size:10px;color:#91a7c1;letter-spacing:1.6px;font-weight:900;text-transform:uppercase;margin:0 0 8px}.tags,.datas{display:flex;gap:8px;flex-wrap:wrap}.tag{display:inline-flex;align-items:center;justify-content:center;min-height:37px;padding:8px 15px;background:#17273e;border:1px solid #30435e;border-radius:11px;color:#d5e1f1;font-size:12px;font-weight:800;cursor:pointer;transition:background .2s,transform .2s}.tag:hover{background:#25405a;transform:translateY(-1px)}.tag.active{background:var(--grad);border-color:transparent;color:#062034;box-shadow:0 4px 18px #52d6df29}
+.filtrosLinha{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:16px;padding-top:15px;border-top:1px solid var(--line)}.datas{flex:1}.btnAtualizar{flex-shrink:0;background:var(--grad);color:#062333;border:0;border-radius:11px;padding:11px 20px;min-height:39px;font:800 13px inherit;cursor:pointer;font-weight:900}.btnAtualizar:hover{filter:brightness(1.1)}.status{margin-top:13px;font-size:11px;color:#9cb0c9}.status:before{content:"";display:inline-block;width:7px;height:7px;background:var(--mint);border-radius:50%;margin-right:7px}
+#loteriaSelect{display:none!important}.section-heading{display:flex;align-items:center;justify-content:space-between;margin:0 3px 17px;font-size:19px;font-weight:900}.section-heading:after{content:"Atualização automática";color:#91a6c0;font-size:12px;font-weight:650}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}.diaTitulo{grid-column:1/-1;display:flex;align-items:center;gap:14px;margin:15px 0 0;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#8ee8f6}.diaTitulo:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,#3a6b7d,transparent)}.diaTitulo:first-child{margin-top:0}
+.card{position:relative;overflow:hidden;background:linear-gradient(150deg,#172840,#101b2e);border:1px solid #2c405d;border-radius:19px;padding:19px;box-shadow:0 10px 30px #0003;transition:transform .2s,border-color .2s}.card:before{content:"";position:absolute;inset:0 0 auto;height:3px;background:var(--grad)}.card:hover{transform:translateY(-3px);border-color:#4a93a8}.cardTop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 16px}.loteriaNome{display:block;color:#a2f4d1;font-size:16px;font-weight:900;line-height:1.3}.cardData{display:block;color:var(--muted);font-size:12px;margin-top:4px}.horarioDestaque{font-size:25px;font-weight:900;color:#83e5ff;white-space:nowrap}.semHora{color:var(--muted)}
+table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid #2b3d55;border-radius:12px;overflow:hidden}th,td{text-align:left;padding:9px 10px;border-bottom:1px solid #26364d}th{background:#20314a;color:#aabdd6;font-size:10px;letter-spacing:.7px;text-transform:uppercase}td{font-size:13px;color:#d6e2f1}tbody tr:nth-child(2n){background:#ffffff06}tbody tr:first-child{background:#f5c66c14}tbody tr:last-child td{border-bottom:0}.milhar{color:#fff;font-size:23px;font-weight:900;letter-spacing:1.5px;font-variant-numeric:tabular-nums}tbody tr:first-child .milhar{color:var(--gold)}.cardRodape{display:flex;justify-content:space-between;align-items:center;gap:9px;margin-top:14px;color:var(--muted);font-size:11px}.share{padding:9px 12px;border-radius:10px;background:#163d3c;border:1px solid #2d7767;color:#a3f7d8;font-size:11px;font-weight:850;cursor:pointer;white-space:nowrap}.share:hover{background:#1b514a}.empty{grid-column:1/-1;text-align:center;padding:70px 18px;border:1px dashed #36506b;border-radius:18px;color:var(--muted)}footer{padding:28px 0 0;text-align:center;color:#859ab5;font-size:12px}
+.tag:focus-visible,.quicklink:focus-visible,button:focus-visible{outline:3px solid #72e7ff;outline-offset:3px}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.container{width:calc(100% - 24px);padding-top:12px}.hero{display:block;padding:26px 20px;border-radius:20px}.hero h1{font-size:clamp(27px,8vw,37px)}.quickbar{align-items:flex-start;flex-direction:row;flex-wrap:wrap;margin-top:20px;gap:8px}.quicklink,.live-pill{font-size:11px}.topbar{position:static;margin:13px 0 20px;padding:16px 13px}.filter-heading small{display:none}.tags{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}.tag{flex-shrink:0}.filtrosLinha{align-items:stretch}.datas{flex-wrap:nowrap;overflow-x:auto;align-items:center}.btnAtualizar{padding:9px 12px}.grid{grid-template-columns:1fr;gap:13px}.card{padding:16px}.section-heading{font-size:17px}.section-heading:after{font-size:10px}.diaTitulo{margin-top:10px}}
+@media(max-width:370px){.milhar{font-size:20px}.cardRodape{flex-wrap:wrap}.share{white-space:normal}.tag{padding:8px 11px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important}}
 </style>
 </head>
 
 <body>
 <div class="container">
 
-  <header class="brandbar">
-    <div class="brand">
-      <h1>Resultados <span>Kelly Menezes JB</span></h1>
-      <p>✦ Chama no milhar! ✦</p>
-    </div>
-    <a class="quicklink" href="https://kellymenezes.app/" target="_blank" rel="noopener noreferrer">Central Kelly ↗</a>
-  </header>
-
-  <section class="filtros">
-    <select id="loteriaSelect" hidden><option value="todas">Todas as loterias</option></select>
-    <div class="linha"><span class="rotulo">Loteria</span><div class="tags" id="tags"></div></div>
-    <div class="linha"><span class="rotulo">Data</span>
-      <div class="datas" id="datas"><div class="tag active" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" onclick="filtrarData('todos', this)">Todas</div><div class="tag" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" onclick="filtrarData('hoje', this)">Hoje</div><div class="tag" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" onclick="filtrarData('ontem', this)">Ontem</div></div>
-    </div>
+  <section class="hero">
+    <div class="brand-kicker">Central Kelly • Resultados</div>
+    <span class="hero-spark one" aria-hidden="true">✦</span><span class="hero-spark two" aria-hidden="true">✧</span>
+    <h1>Resultados <span>Kelly Menezes JB</span></h1>
+    <p>✦ Chama no milhar! ✦</p>
+    <div class="quickbar"><span class="live-pill">Painel de resultados</span><a class="quicklink" href="https://kellymenezes.app/" target="_blank" rel="noopener noreferrer">✦ Central Kelly ↗</a></div>
   </section>
 
-  <div class="statusLinha">
+  <section class="topbar">
+    <select id="loteriaSelect" hidden><option value="todas">Todas as loterias</option></select>
+    <div class="filter-heading"><h2>Filtrar resultados</h2><small>Selecione a loteria e o período</small></div>
+    <div class="filter-label">Loterias</div>
+    <div class="tags" id="tags"></div>
+    <div class="filtrosLinha">
+      <div class="datas" id="datas">
+        <div class="tag active" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" onclick="filtrarData('todos', this)">Todas as datas</div>
+        <div class="tag" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" onclick="filtrarData('hoje', this)">Hoje</div>
+        <div class="tag" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" onclick="filtrarData('ontem', this)">Ontem</div>
+      </div>
+      <button class="btnAtualizar" onclick="aplicarFiltro()">Atualizar</button>
+    </div>
     <div class="status" id="status">Carregando resultados...</div>
-    <button class="btnAtualizar" onclick="aplicarFiltro()">Atualizar</button>
-  </div>
+  </section>
 
+  <div class="section-heading">Últimos resultados</div>
   <main class="grid" id="gridResultados"></main>
 
   <footer>© Kelly Menezes JB</footer>
@@ -120,7 +66,7 @@ footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px}
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getFirestore, collection, query, where, limit, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import { getFirestore, collection, query, orderBy, limit, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC6iyfXbCt-fHL5Wt5zNS5myKq-njJzbms",
@@ -240,15 +186,20 @@ function renderizar(lista){
           </div>
           <span class="horarioDestaque ${hora ? "" : "semHora"}">${hora ? escapeHtml(hora) : "—"}</span>
         </div>
-        <div class="premios">
-          ${lerPremios(item).map((p, i) => `
-            <div class="premio ${i === 0 ? "primeiro" : ""}">
-              <span class="pos">${escapeHtml(p.posicao || "")}</span>
-              <span class="milhar">${escapeHtml(p.milhar || "")}</span>
-              <span class="bicho">${escapeHtml(p.bicho || "")}</span>
-            </div>
-          `).join("")}
-        </div>
+        <table>
+          <thead>
+            <tr><th>Prêmio</th><th>Milhar</th><th>Bicho</th></tr>
+          </thead>
+          <tbody>
+            ${lerPremios(item).map(p => `
+              <tr>
+                <td>${escapeHtml(p.posicao || "")}</td>
+                <td class="milhar">${escapeHtml(p.milhar || "")}</td>
+                <td>${escapeHtml(p.bicho || "")}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
         <div class="cardRodape">
           <span>${atualizado}</span>
           <button class="share" data-id="${escapeHtml(item.id || "")}" onclick="compartilhar(this.dataset.id)">Enviar no WhatsApp</button>
@@ -307,13 +258,20 @@ function montarFiltros(){
     select.value = valorAtual;
   }
 
-  const fixas = ["PT-SP","PT-RIO","LOOK LOTERIAS","BANDEIRANTES","LOTECE","MALUCA BAHIA","BOA SORTE GOIÁS"];
-  const extras = loterias.filter(n => !fixas.some(f => normalizar(f) === normalizar(n)));
-  const principais = ["todas", ...fixas, ...extras];
+  const principais = [
+    "todas",
+    "PT-SP",
+    "PT-RIO",
+    "LOOK LOTERIAS",
+    "BANDEIRANTES",
+    "LOTECE",
+    "MALUCA BAHIA",
+    "BOA SORTE GOIÁS"
+  ];
 
   tags.innerHTML = principais.map(nome => `
-    <div class="tag ${normalizar(nome) === normalizar(select.value) ? "active" : ""}" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" data-nome="${escapeHtml(nome)}" onclick="filtrarRapido(this.dataset.nome, this)">
-      ${nome === "todas" ? "Todas" : escapeHtml(nome)}
+    <div class="tag ${normalizar(nome) === normalizar(select.value) ? "active" : ""}" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" onclick="filtrarRapido('${nome}', this)">
+      ${nome === "todas" ? "Todas" : nome}
     </div>
   `).join("");
 }
@@ -332,14 +290,9 @@ function erroAoCarregar(err){
   statusEl.textContent = "Erro ao carregar resultados.";
 }
 
-// Lê só os últimos 10 dias (pelo campo "data" dd/mm/aaaa, que todos os documentos têm).
-// Se não vier nada, cai para a leitura simples.
-function datasRecentes(n){
-  const base = Date.parse(isoHoje() + "T12:00:00Z");
-  return Array.from({ length: n }, (_, i) =>
-    new Date(base - i * 864e5).toISOString().slice(0,10).split("-").reverse().join("/"));
-}
-const recentes = query(collection(db, "resultados"), where("data", "in", datasRecentes(10)), limit(400));
+// Lê só os 150 mais recentes (evita ler o banco inteiro a cada visita).
+// Se nenhum documento tiver "dataOrdenacao", cai para a leitura simples.
+const recentes = query(collection(db, "resultados"), orderBy("dataOrdenacao", "desc"), limit(150));
 const simples = query(collection(db, "resultados"), limit(300));
 let cancelarSimples = null;
 
