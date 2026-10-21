@@ -100,12 +100,12 @@ button:active{transform:translateY(0) scale(.98)}
   background:linear-gradient(180deg,var(--card2),var(--card));
   border:1px solid var(--line);border-radius:22px;padding:16px;
   box-shadow:0 14px 34px rgba(0,0,0,.30);
-  animation:entra .45s ease both;
+  animation:entra .25s ease both;
   transition:transform .2s,border-color .2s,box-shadow .2s;
 }
 .card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--grad);opacity:.9}
 .card:hover{transform:translateY(-3px);border-color:rgba(34,211,238,.35);box-shadow:0 18px 40px rgba(0,0,0,.42)}
-@keyframes entra{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes entra{from{opacity:0}to{opacity:1}}
 
 .info{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:4px 0 14px}
 .infoItem{
@@ -229,7 +229,7 @@ footer{padding:12px 0 20px;color:#8d9fb9}
 
   <main class="grid" id="gridResultados"></main>
 
-  <footer>© Kelly Menezes JB •</footer>
+  <footer>© Kelly Menezes JB</footer>
 
 </div>
 
@@ -426,7 +426,7 @@ function montarFiltros(){
   ];
 
   tags.innerHTML = principais.map(nome => `
-    <div class="tag ${normalizar(nome) === normalizar(select.value) ? "active" : ""}" onclick="filtrarRapido('${nome}', this)">
+    <div class="tag ${normalizar(nome) === normalizar(select.value) ? "active" : ""}" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" onclick="filtrarRapido('${nome}', this)">
       ${nome === "todas" ? "Todas" : nome}
     </div>
   `).join("");
@@ -450,14 +450,14 @@ function erroAoCarregar(err){
 // Se nenhum documento tiver "dataOrdenacao", cai para a leitura simples.
 const recentes = query(collection(db, "resultados"), orderBy("dataOrdenacao", "desc"), limit(150));
 const simples = query(collection(db, "resultados"), limit(300));
-let usouSimples = false;
+let cancelarSimples = null;
 
 onSnapshot(recentes, snap => {
-  if(snap.empty && !usouSimples){
-    usouSimples = true;
-    onSnapshot(simples, aoReceber, erroAoCarregar);
+  if(snap.empty){
+    if(!cancelarSimples) cancelarSimples = onSnapshot(simples, aoReceber, erroAoCarregar);
     return;
   }
+  if(cancelarSimples){ cancelarSimples(); cancelarSimples = null; }
   aoReceber(snap);
 }, erroAoCarregar);
 </script>
