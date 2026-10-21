@@ -18,7 +18,7 @@
 .topbar{position:sticky;top:10px;z-index:5;margin:20px 0 24px;padding:20px 22px;border:1px solid var(--line);border-radius:22px;background:#0e1929f2;backdrop-filter:blur(16px);box-shadow:0 14px 40px #0007}
 .filter-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.filter-heading h2{margin:0;font-size:15px;letter-spacing:.2px}.filter-heading small{color:var(--muted);font-size:12px}.filter-label{font-size:10px;color:#91a7c1;letter-spacing:1.6px;font-weight:900;text-transform:uppercase;margin:0 0 8px}.tags,.datas{display:flex;gap:8px;flex-wrap:wrap}.tag{display:inline-flex;align-items:center;justify-content:center;min-height:37px;padding:8px 15px;background:#17273e;border:1px solid #30435e;border-radius:11px;color:#d5e1f1;font-size:12px;font-weight:800;cursor:pointer;transition:background .2s,transform .2s}.tag:hover{background:#25405a;transform:translateY(-1px)}.tag.active{background:var(--grad);border-color:transparent;color:#062034;box-shadow:0 4px 18px #52d6df29}
 .filtrosLinha{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:16px;padding-top:15px;border-top:1px solid var(--line)}.datas{flex:1}.btnAtualizar{flex-shrink:0;background:var(--grad);color:#062333;border:0;border-radius:11px;padding:11px 20px;min-height:39px;font:800 13px inherit;cursor:pointer;font-weight:900}.btnAtualizar:hover{filter:brightness(1.1)}.status{margin-top:13px;font-size:11px;color:#9cb0c9}.status:before{content:"";display:inline-block;width:7px;height:7px;background:var(--mint);border-radius:50%;margin-right:7px}
-#loteriaSelect{display:none!important}.section-heading{display:flex;align-items:center;justify-content:space-between;margin:0 3px 17px;font-size:19px;font-weight:900}.section-heading:after{content:"Atualização automática";color:#91a6c0;font-size:12px;font-weight:650}
+#loteriaSelect{display:block;width:100%;min-height:46px;background:#17273e;color:#f1f6ff;border:1px solid #40546e;border-radius:12px;padding:10px 14px;font-size:15px;margin:0 0 15px;outline-offset:2px}.section-heading{display:flex;align-items:center;justify-content:space-between;margin:0 3px 17px;font-size:19px;font-weight:900}.section-heading:after{content:"Atualização automática";color:#91a6c0;font-size:12px;font-weight:650}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}.diaTitulo{grid-column:1/-1;display:flex;align-items:center;gap:14px;margin:15px 0 0;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#8ee8f6}.diaTitulo:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,#3a6b7d,transparent)}.diaTitulo:first-child{margin-top:0}
 .card{position:relative;overflow:hidden;background:linear-gradient(150deg,#172840,#101b2e);border:1px solid #2c405d;border-radius:19px;padding:19px;box-shadow:0 10px 30px #0003;transition:transform .2s,border-color .2s}.card:before{content:"";position:absolute;inset:0 0 auto;height:3px;background:var(--grad)}.card:hover{transform:translateY(-3px);border-color:#4a93a8}.cardTop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 16px}.loteriaNome{display:block;color:#a2f4d1;font-size:16px;font-weight:900;line-height:1.3}.cardData{display:block;color:var(--muted);font-size:12px;margin-top:4px}.horarioDestaque{font-size:25px;font-weight:900;color:#83e5ff;white-space:nowrap}.semHora{color:var(--muted)}
 table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid #2b3d55;border-radius:12px;overflow:hidden}th,td{text-align:left;padding:9px 10px;border-bottom:1px solid #26364d}th{background:#20314a;color:#aabdd6;font-size:10px;letter-spacing:.7px;text-transform:uppercase}td{font-size:13px;color:#d6e2f1}tbody tr:nth-child(2n){background:#ffffff06}tbody tr:first-child{background:#f5c66c14}tbody tr:last-child td{border-bottom:0}.milhar{color:#fff;font-size:23px;font-weight:900;letter-spacing:1.5px;font-variant-numeric:tabular-nums}tbody tr:first-child .milhar{color:var(--gold)}.cardRodape{display:flex;justify-content:space-between;align-items:center;gap:9px;margin-top:14px;color:var(--muted);font-size:11px}.share{padding:9px 12px;border-radius:10px;background:#163d3c;border:1px solid #2d7767;color:#a3f7d8;font-size:11px;font-weight:850;cursor:pointer;white-space:nowrap}.share:hover{background:#1b514a}.empty{grid-column:1/-1;text-align:center;padding:70px 18px;border:1px dashed #36506b;border-radius:18px;color:var(--muted)}footer{padding:28px 0 0;text-align:center;color:#859ab5;font-size:12px}
@@ -42,7 +42,7 @@ table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid #2b3
   </section>
 
   <section class="topbar">
-    <select id="loteriaSelect" hidden><option value="todas">Todas as loterias</option></select>
+    <select id="loteriaSelect" aria-label="Selecionar qualquer loteria"><option value="todas">Todas as loterias</option></select>
     <div class="filter-heading"><h2>Filtrar resultados</h2><small>Selecione a loteria e o período</small></div>
     <div class="filter-label">Loterias</div>
     <div class="tags" id="tags"></div>
@@ -258,25 +258,24 @@ function montarFiltros(){
     select.value = valorAtual;
   }
 
-  const principais = [
-    "todas",
-    "PT-SP",
-    "PT-RIO",
-    "LOOK LOTERIAS",
-    "BANDEIRANTES",
-    "LOTECE",
-    "MALUCA BAHIA",
-    "BOA SORTE GOIÁS"
-  ];
-
-  tags.innerHTML = principais.map(nome => `
-    <div class="tag ${normalizar(nome) === normalizar(select.value) ? "active" : ""}" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" onclick="filtrarRapido('${nome}', this)">
-      ${nome === "todas" ? "Todas" : nome}
-    </div>
-  `).join("");
+  // Lista de atalhos gerada a partir dos nomes reais recebidos do banco.
+  // Não restringir a uma relação fixa de loterias.
+  const disponiveis = ["todas", ...loterias];
+  tags.innerHTML = "";
+  disponiveis.forEach(nome => {
+    const botao = document.createElement("button");
+    botao.type = "button";
+    botao.className = "tag" + (normalizar(nome) === normalizar(select.value) ? " active" : "");
+    botao.textContent = nome === "todas" ? "Todas" : nome;
+    botao.addEventListener("click", () => filtrarRapido(nome, botao));
+    tags.appendChild(botao);
+  });
 }
 
-select.addEventListener("change", aplicarFiltro);
+select.addEventListener("change", () => {
+  tags.querySelectorAll(".tag").forEach(t => t.classList.toggle("active", normalizar(t.textContent === "Todas" ? "todas" : t.textContent) === normalizar(select.value)));
+  aplicarFiltro();
+});
 
 function aoReceber(snap){
   todosResultados = limparDocumentosInvalidos(snap.docs.map(d => ({ id: d.id, ...d.data() })));
@@ -290,10 +289,10 @@ function erroAoCarregar(err){
   statusEl.textContent = "Erro ao carregar resultados.";
 }
 
-// Lê só os 150 mais recentes (evita ler o banco inteiro a cada visita).
+// Consulta os registros recentes; os filtros exibem todas as loterias presentes na consulta.
 // Se nenhum documento tiver "dataOrdenacao", cai para a leitura simples.
-const recentes = query(collection(db, "resultados"), orderBy("dataOrdenacao", "desc"), limit(150));
-const simples = query(collection(db, "resultados"), limit(300));
+const recentes = query(collection(db, "resultados"), orderBy("dataOrdenacao", "desc"), limit(600));
+const simples = query(collection(db, "resultados"), limit(1000));
 let cancelarSimples = null;
 
 onSnapshot(recentes, snap => {
